@@ -33,6 +33,8 @@
     .places{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}@media(max-width:820px){.places{grid-template-columns:1fr}}.place{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}.place-body{padding:14px}.place h4{margin:0 0 4px;font-size:17px}.addr{font-size:13px;color:var(--muted)}.place-map-wrap{height:220px;border-top:1px solid var(--line);background:#eee}.tag{display:inline-block;font-size:12px;color:#fff;background:var(--accent);padding:2px 8px;border-radius:999px;margin-right:6px}.small{font-size:13px;color:var(--muted)}
     details{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 14px;margin:10px 0}summary{cursor:pointer;font-weight:700}.api-box{border:1px solid #d9c8a8;background:#fff8eb;border-radius:20px;padding:16px;margin:18px 0}.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f2eee8;border-radius:8px;padding:2px 5px;color:#4a4037}.footer{padding:36px 0 70px;color:var(--muted);font-size:13px}
     .route-status{font-size:13px;color:#6a5f54;margin-top:-4px}.error{color:var(--warn)}.success{color:var(--ok)}
+
+    .place-zh{font-weight:800;color:#2f2c28;display:block}.place-ja{font-size:14px;color:#9c6b3f;display:block;margin-top:2px}.place-en{font-size:12px;color:#6f6a63;display:block;margin-top:1px}.addr-original{color:#8a8177}.route-name .place-zh{display:inline;font-weight:800}.route-name .place-ja{display:inline;margin-left:8px}.route-name .place-en{display:inline;margin-left:8px}
   </style>
 </head>
 <body>
@@ -249,28 +251,472 @@ const itinerary = [
   }
 ];
 
+const placeMeta = {
+  "Floral Hotel・East Shinsaibashi": {
+    "zh": "Floral Hotel・东心斋桥",
+    "ja": "フローラルホテル・東心斎橋",
+    "en": "Floral Hotel East Shinsaibashi",
+    "addressJa": "大阪府大阪市中央区島之内2丁目6-4",
+    "query": "大阪府大阪市中央区島之内2丁目6-4 Floral Hotel East Shinsaibashi"
+  },
+  "Dotonbori / 道顿堀": {
+    "zh": "道顿堀",
+    "ja": "道頓堀",
+    "en": "Dotonbori",
+    "addressJa": "大阪府大阪市中央区道頓堀",
+    "query": "道頓堀 大阪府大阪市中央区"
+  },
+  "Hozenji Yokocho / 法善寺横丁": {
+    "zh": "法善寺横丁",
+    "ja": "法善寺横丁",
+    "en": "Hozenji Yokocho",
+    "addressJa": "大阪府大阪市中央区難波1丁目2",
+    "query": "法善寺横丁 大阪府大阪市中央区難波1丁目2"
+  },
+  "Sennichimae / 千日前": {
+    "zh": "千日前",
+    "ja": "千日前",
+    "en": "Sennichimae",
+    "addressJa": "大阪府大阪市中央区千日前",
+    "query": "千日前 大阪府大阪市中央区"
+  },
+  "Osaka Museum of Housing and Living / 大阪生活今昔馆": {
+    "zh": "大阪生活今昔馆",
+    "ja": "大阪くらしの今昔館",
+    "en": "Osaka Museum of Housing and Living",
+    "addressJa": "大阪府大阪市北区天神橋6丁目4-20 住まい情報センター8階",
+    "query": "大阪くらしの今昔館 大阪市北区天神橋6丁目4-20"
+  },
+  "Nakazakicho / 中崎町": {
+    "zh": "中崎町",
+    "ja": "中崎町",
+    "en": "Nakazakicho",
+    "addressJa": "大阪府大阪市北区中崎町",
+    "query": "中崎町 大阪市北区"
+  },
+  "Tenjinbashisuji Shopping Street / 天神桥筋商店街": {
+    "zh": "天神桥筋商店街",
+    "ja": "天神橋筋商店街",
+    "en": "Tenjinbashisuji Shopping Street",
+    "addressJa": "大阪府大阪市北区天神橋",
+    "query": "天神橋筋商店街 大阪市北区"
+  },
+  "Umeda Sky Building / 梅田蓝天大厦": {
+    "zh": "梅田蓝天大厦",
+    "ja": "梅田スカイビル",
+    "en": "Umeda Sky Building",
+    "addressJa": "大阪府大阪市北区大淀中1丁目1-88",
+    "query": "梅田スカイビル 大阪府大阪市北区大淀中1丁目1-88"
+  },
+  "Osaka-Namba Station / 大阪难波站": {
+    "zh": "大阪难波站",
+    "ja": "大阪難波駅",
+    "en": "Osaka-Namba Station",
+    "addressJa": "大阪府大阪市中央区難波4丁目1-17",
+    "query": "大阪難波駅"
+  },
+  "Kintetsu Nara Station / 近铁奈良站": {
+    "zh": "近铁奈良站",
+    "ja": "近鉄奈良駅",
+    "en": "Kintetsu Nara Station",
+    "addressJa": "奈良県奈良市東向中町29",
+    "query": "近鉄奈良駅"
+  },
+  "Kofuku-ji Temple / 兴福寺": {
+    "zh": "兴福寺",
+    "ja": "興福寺",
+    "en": "Kofuku-ji Temple",
+    "addressJa": "奈良県奈良市登大路町48",
+    "query": "興福寺 奈良県奈良市登大路町48"
+  },
+  "Nara Park / 奈良公园": {
+    "zh": "奈良公园",
+    "ja": "奈良公園",
+    "en": "Nara Park",
+    "addressJa": "奈良県奈良市雑司町469",
+    "query": "奈良公園 奈良県奈良市"
+  },
+  "Todai-ji Temple / 东大寺": {
+    "zh": "东大寺",
+    "ja": "東大寺",
+    "en": "Todai-ji Temple",
+    "addressJa": "奈良県奈良市雑司町406-1",
+    "query": "東大寺 奈良県奈良市雑司町406-1"
+  },
+  "Kasuga Taisha / 春日大社外苑": {
+    "zh": "春日大社外苑",
+    "ja": "春日大社",
+    "en": "Kasuga Taisha",
+    "addressJa": "奈良県奈良市春日野町160",
+    "query": "春日大社 奈良県奈良市春日野町160"
+  },
+  "Naramachi / 奈良町": {
+    "zh": "奈良町",
+    "ja": "ならまち",
+    "en": "Naramachi",
+    "addressJa": "奈良県奈良市ならまち",
+    "query": "ならまち 奈良市"
+  },
+  "Kobe-Sannomiya Station / 神户三宫站": {
+    "zh": "神户三宫站",
+    "ja": "神戸三宮駅",
+    "en": "Kobe-Sannomiya Station",
+    "addressJa": "兵庫県神戸市中央区小野柄通8丁目1-8",
+    "query": "神戸三宮駅"
+  },
+  "Kitano Ijinkan-gai / 北野异人馆街": {
+    "zh": "北野异人馆街",
+    "ja": "北野異人館街",
+    "en": "Kitano Ijinkan-gai",
+    "addressJa": "兵庫県神戸市中央区北野町",
+    "query": "北野異人館街 兵庫県神戸市中央区北野町"
+  },
+  "Nankinmachi / 南京町": {
+    "zh": "南京町",
+    "ja": "南京町",
+    "en": "Nankinmachi",
+    "addressJa": "兵庫県神戸市中央区栄町通1丁目3-18",
+    "query": "南京町 神戸市中央区"
+  },
+  "Hakutsuru Sake Brewery Museum / 白鹤酒造资料馆": {
+    "zh": "白鹤酒造资料馆",
+    "ja": "白鶴酒造資料館",
+    "en": "Hakutsuru Sake Brewery Museum",
+    "addressJa": "兵庫県神戸市東灘区住吉南町4丁目5-5",
+    "query": "白鶴酒造資料館 兵庫県神戸市東灘区住吉南町4丁目5-5"
+  },
+  "Kobe Harborland / 神户港・Harborland": {
+    "zh": "神户港・Harborland",
+    "ja": "神戸ハーバーランド",
+    "en": "Kobe Harborland",
+    "addressJa": "兵庫県神戸市中央区東川崎町1丁目",
+    "query": "神戸ハーバーランド"
+  },
+  "Shijo Karasuma / 四条乌丸": {
+    "zh": "四条乌丸",
+    "ja": "四条烏丸",
+    "en": "Shijo Karasuma",
+    "addressJa": "京都府京都市下京区四条通烏丸",
+    "query": "四条烏丸 京都市"
+  },
+  "Fushimi Inari Taisha / 伏见稻荷大社": {
+    "zh": "伏见稻荷大社",
+    "ja": "伏見稲荷大社",
+    "en": "Fushimi Inari Taisha",
+    "addressJa": "京都府京都市伏見区深草藪之内町68",
+    "query": "伏見稲荷大社 京都府京都市伏見区深草藪之内町68"
+  },
+  "Kamo River / 鸭川": {
+    "zh": "鸭川",
+    "ja": "鴨川",
+    "en": "Kamo River",
+    "addressJa": "京都府京都市 四条大橋付近",
+    "query": "鴨川 四条大橋 京都市"
+  },
+  "Pontocho Alley / 先斗町": {
+    "zh": "先斗町",
+    "ja": "先斗町",
+    "en": "Pontocho Alley",
+    "addressJa": "京都府京都市中京区先斗町",
+    "query": "先斗町 京都市中京区"
+  },
+  "Gion & Hanamikoji / 祇园・花见小路外围": {
+    "zh": "祇园・花见小路外围",
+    "ja": "祇園 花見小路",
+    "en": "Gion & Hanamikoji",
+    "addressJa": "京都府京都市東山区祇園町南側 花見小路通",
+    "query": "祇園 花見小路 京都市東山区"
+  },
+  "Kiyomizu-dera Temple / 清水寺": {
+    "zh": "清水寺",
+    "ja": "清水寺",
+    "en": "Kiyomizu-dera Temple",
+    "addressJa": "京都府京都市東山区清水1丁目294",
+    "query": "清水寺 京都府京都市東山区清水1丁目294"
+  },
+  "Sannenzaka & Ninenzaka / 三年坂・二年坂": {
+    "zh": "三年坂・二年坂",
+    "ja": "産寧坂・二寧坂",
+    "en": "Sannenzaka & Ninenzaka",
+    "addressJa": "京都府京都市東山区清水周辺",
+    "query": "産寧坂 二寧坂 京都市東山区"
+  },
+  "Yasaka Shrine / 八坂神社": {
+    "zh": "八坂神社",
+    "ja": "八坂神社",
+    "en": "Yasaka Shrine",
+    "addressJa": "京都府京都市東山区祇園町北側625",
+    "query": "八坂神社 京都府京都市東山区祇園町北側625"
+  },
+  "Nanzen-ji Temple / 南禅寺": {
+    "zh": "南禅寺",
+    "ja": "南禅寺",
+    "en": "Nanzen-ji Temple",
+    "addressJa": "京都府京都市左京区南禅寺福地町86",
+    "query": "南禅寺 京都府京都市左京区南禅寺福地町86"
+  },
+  "Philosopher's Path / 哲学之道": {
+    "zh": "哲学之道",
+    "ja": "哲学の道",
+    "en": "Philosopher's Path",
+    "addressJa": "京都府京都市左京区鹿ケ谷周辺",
+    "query": "哲学の道 京都市左京区"
+  },
+  "Torokko Kameoka Station / 小火车龟冈站": {
+    "zh": "小火车龟冈站",
+    "ja": "トロッコ亀岡駅",
+    "en": "Torokko Kameoka Station",
+    "addressJa": "京都府亀岡市篠町山本地黒20-2",
+    "query": "トロッコ亀岡駅 京都府亀岡市篠町山本"
+  },
+  "Sagano Romantic Train：Kameoka Departure / 嵯峨野トロッコ列車・龟冈发车": {
+    "zh": "嵯峨野小火车・龟冈发车",
+    "ja": "嵯峨野トロッコ列車・トロッコ亀岡駅",
+    "en": "Sagano Romantic Train: Kameoka Departure",
+    "addressJa": "京都府亀岡市篠町山本地黒20-2",
+    "query": "トロッコ亀岡駅 嵯峨野トロッコ列車"
+  },
+  "Torokko Arashiyama Station / 小火车岚山站": {
+    "zh": "小火车岚山站",
+    "ja": "トロッコ嵐山駅",
+    "en": "Torokko Arashiyama Station",
+    "addressJa": "京都府京都市右京区嵯峨小倉山田淵山町4-2",
+    "query": "トロッコ嵐山駅 京都市右京区"
+  },
+  "Arashiyama Bamboo Forest / 岚山竹林": {
+    "zh": "岚山竹林",
+    "ja": "竹林の小径",
+    "en": "Arashiyama Bamboo Forest",
+    "addressJa": "京都府京都市右京区嵯峨天龍寺芒ノ馬場町",
+    "query": "竹林の小径 京都市右京区嵯峨天龍寺"
+  },
+  "Tenryu-ji Temple / 天龙寺外围": {
+    "zh": "天龙寺外围",
+    "ja": "天龍寺",
+    "en": "Tenryu-ji Temple",
+    "addressJa": "京都府京都市右京区嵯峨天龍寺芒ノ馬場町68",
+    "query": "天龍寺 京都府京都市右京区嵯峨天龍寺芒ノ馬場町68"
+  },
+  "Togetsukyo Bridge / 渡月桥": {
+    "zh": "渡月桥",
+    "ja": "渡月橋",
+    "en": "Togetsukyo Bridge",
+    "addressJa": "京都府京都市右京区嵯峨中ノ島町付近",
+    "query": "渡月橋 京都市右京区"
+  },
+  "Daikaku-ji Temple / 大觉寺": {
+    "zh": "大觉寺",
+    "ja": "大覚寺",
+    "en": "Daikaku-ji Temple",
+    "addressJa": "京都府京都市右京区嵯峨大沢町4",
+    "query": "大覚寺 京都府京都市右京区嵯峨大沢町4"
+  },
+  "Nishiki Market / 锦市场": {
+    "zh": "锦市场",
+    "ja": "錦市場",
+    "en": "Nishiki Market",
+    "addressJa": "京都府京都市中京区錦小路通",
+    "query": "錦市場 京都市中京区"
+  },
+  "Keihan Uji Station / 京阪宇治站": {
+    "zh": "京阪宇治站",
+    "ja": "京阪宇治駅",
+    "en": "Keihan Uji Station",
+    "addressJa": "京都府宇治市宇治乙方18-5",
+    "query": "京阪宇治駅"
+  },
+  "Uji Bridge / 宇治桥": {
+    "zh": "宇治桥",
+    "ja": "宇治橋",
+    "en": "Uji Bridge",
+    "addressJa": "京都府宇治市宇治",
+    "query": "宇治橋 京都府宇治市"
+  },
+  "Uji River Promenade / 宇治川河岸": {
+    "zh": "宇治川河岸",
+    "ja": "宇治川沿い",
+    "en": "Uji River Promenade",
+    "addressJa": "京都府宇治市宇治 宇治川沿い",
+    "query": "宇治川 宇治市"
+  },
+  "Agata Shrine / 县神社": {
+    "zh": "县神社",
+    "ja": "縣神社",
+    "en": "Agata Shrine",
+    "addressJa": "京都府宇治市宇治蓮華72",
+    "query": "縣神社 京都府宇治市宇治蓮華72"
+  },
+  "Byodoin Omotesando / 平等院表参道": {
+    "zh": "平等院表参道",
+    "ja": "平等院表参道",
+    "en": "Byodoin Omotesando",
+    "addressJa": "京都府宇治市宇治蓮華周辺",
+    "query": "平等院表参道 宇治市"
+  },
+  "Byodoin Temple / 平等院": {
+    "zh": "平等院",
+    "ja": "平等院",
+    "en": "Byodoin Temple",
+    "addressJa": "京都府宇治市宇治蓮華116",
+    "query": "平等院 京都府宇治市宇治蓮華116"
+  },
+  "Uji Shrine / 宇治神社": {
+    "zh": "宇治神社",
+    "ja": "宇治神社",
+    "en": "Uji Shrine",
+    "addressJa": "京都府宇治市宇治山田1",
+    "query": "宇治神社 京都府宇治市宇治山田1"
+  },
+  "Ujigami Shrine / 宇治上神社": {
+    "zh": "宇治上神社",
+    "ja": "宇治上神社",
+    "en": "Ujigami Shrine",
+    "addressJa": "京都府宇治市宇治山田59",
+    "query": "宇治上神社 京都府宇治市宇治山田59"
+  },
+  "Asagiri Bridge / 朝雾桥": {
+    "zh": "朝雾桥",
+    "ja": "朝霧橋",
+    "en": "Asagiri Bridge",
+    "addressJa": "京都府宇治市宇治 朝霧橋",
+    "query": "朝霧橋 宇治市"
+  },
+  "Daikichiyama Observation Deck / 大吉山展望台": {
+    "zh": "大吉山展望台",
+    "ja": "大吉山展望台",
+    "en": "Daikichiyama Observation Deck",
+    "addressJa": "京都府宇治市宇治紅斉",
+    "query": "大吉山展望台 宇治市"
+  },
+  "Kuromon Market / 黑门市场": {
+    "zh": "黑门市场",
+    "ja": "黒門市場",
+    "en": "Kuromon Market",
+    "addressJa": "大阪府大阪市中央区日本橋2丁目4-1",
+    "query": "黒門市場 大阪市中央区日本橋2丁目4-1"
+  },
+  "Nipponbashi Den Den Town / 日本桥电电城": {
+    "zh": "日本桥电电城",
+    "ja": "でんでんタウン",
+    "en": "Nipponbashi Den Den Town",
+    "addressJa": "大阪府大阪市浪速区日本橋周辺",
+    "query": "でんでんタウン 大阪市浪速区日本橋"
+  },
+  "Tsutenkaku & Shinsekai / 通天阁・新世界": {
+    "zh": "通天阁・新世界",
+    "ja": "通天閣・新世界",
+    "en": "Tsutenkaku & Shinsekai",
+    "addressJa": "大阪府大阪市浪速区恵美須東1丁目18-6",
+    "query": "通天閣 新世界 大阪市浪速区恵美須東1丁目18-6"
+  },
+  "Shitenno-ji Temple / 四天王寺外圈": {
+    "zh": "四天王寺外圈",
+    "ja": "四天王寺",
+    "en": "Shitenno-ji Temple",
+    "addressJa": "大阪府大阪市天王寺区四天王寺1丁目11-18",
+    "query": "四天王寺 大阪府大阪市天王寺区四天王寺1丁目11-18"
+  },
+  "Abeno Harukas / 阿倍野 Harukas": {
+    "zh": "阿倍野 Harukas",
+    "ja": "あべのハルカス",
+    "en": "Abeno Harukas",
+    "addressJa": "大阪府大阪市阿倍野区阿倍野筋1丁目1-43",
+    "query": "あべのハルカス 大阪府大阪市阿倍野区阿倍野筋1丁目1-43"
+  },
+  "Osaka Science Museum / 大阪市立科学馆": {
+    "zh": "大阪市立科学馆",
+    "ja": "大阪市立科学館",
+    "en": "Osaka Science Museum",
+    "addressJa": "大阪府大阪市北区中之島4丁目2-1",
+    "query": "大阪市立科学館 大阪府大阪市北区中之島4丁目2-1"
+  },
+  "Nakanoshima / 中之岛建筑散步": {
+    "zh": "中之岛建筑散步",
+    "ja": "中之島",
+    "en": "Nakanoshima",
+    "addressJa": "大阪府大阪市北区中之島",
+    "query": "中之島 大阪市北区"
+  },
+  "Tsuruhashi Koreatown / 鹤桥韩国街": {
+    "zh": "鹤桥韩国街",
+    "ja": "鶴橋コリアタウン",
+    "en": "Tsuruhashi Koreatown",
+    "addressJa": "大阪府大阪市生野区桃谷周辺",
+    "query": "鶴橋 コリアタウン 大阪市生野区桃谷"
+  },
+  "Shinsaibashi-suji Shopping Street / 心斋桥筋商店街": {
+    "zh": "心斋桥筋商店街",
+    "ja": "心斎橋筋商店街",
+    "en": "Shinsaibashi-suji Shopping Street",
+    "addressJa": "大阪府大阪市中央区心斎橋筋",
+    "query": "心斎橋筋商店街 大阪市中央区"
+  },
+  "Nankai Namba Station / 南海难波站": {
+    "zh": "南海难波站",
+    "ja": "南海なんば駅",
+    "en": "Nankai Namba Station",
+    "addressJa": "大阪府大阪市中央区難波5丁目1-60",
+    "query": "南海なんば駅"
+  },
+  "Kansai International Airport / 关西国际机场": {
+    "zh": "关西国际机场",
+    "ja": "関西国際空港",
+    "en": "Kansai International Airport",
+    "addressJa": "大阪府泉佐野市泉州空港北1",
+    "query": "関西国際空港"
+  }
+};
+
 function enc(s){return encodeURIComponent(s)}
-function mapsSearchUrl(q){return `https://www.google.com/maps/search/?api=1&query=${enc(q)}`}
+function metaFor(p){return placeMeta[p.name] || {}}
+function originalNameParts(name){
+  const parts = String(name).split('/').map(x=>x.trim());
+  return parts.length > 1 ? {en:parts[0], zh:parts.slice(1).join(' / ')} : {en:'', zh:String(name)};
+}
+function placeZh(p){const m=metaFor(p), o=originalNameParts(p.name); return m.zh || o.zh || p.name}
+function placeJa(p){const m=metaFor(p); return m.ja || m.query || p.address || p.name}
+function placeEn(p){const m=metaFor(p), o=originalNameParts(p.name); return m.en || o.en || ''}
+function mapQuery(p){
+  const m = metaFor(p);
+  return m.query || m.addressJa || m.ja || p.address || p.name;
+}
+function placeAddressJa(p){const m=metaFor(p); return m.addressJa || m.query || p.address || p.name}
+function placeTitleText(p){
+  const en = placeEn(p);
+  return `${placeZh(p)} / ${placeJa(p)}${en ? ' / ' + en : ''}`;
+}
+function placeTitleHtml(p){
+  const en = placeEn(p);
+  return `<span class="place-zh">${html(placeZh(p))}</span><span class="place-ja">${html(placeJa(p))}</span>${en ? `<span class="place-en">${html(en)}</span>` : ''}`;
+}
+function placeAddressHtml(p){
+  const original = p.address ? `<br><span class="addr-original">原始地址：${html(p.address)}</span>` : '';
+  return `<strong>日文检索：</strong>${html(placeAddressJa(p))}${original}`;
+}
+function mapsSearchUrl(q){return `https://www.google.com/maps/search/?api=1&query=${enc(q)}&hl=ja&gl=JP`}
 function routeMode(day){return day.segments && day.segments.includes('TRANSIT') ? 'transit' : 'walking'}
 function legacyDirFlag(day){return day.segments && day.segments.includes('TRANSIT') ? 'r' : 'w'}
 function mapsDirUrl(stops, mode='walking'){
-  const origin = stops[0].address || stops[0].name;
-  const destination = stops[stops.length-1].address || stops[stops.length-1].name;
-  const waypoints = stops.slice(1,-1).map(s=>s.address || s.name).join('|');
+  const origin = mapQuery(stops[0]);
+  const destination = mapQuery(stops[stops.length-1]);
+  const waypoints = stops.slice(1,-1).map(s=>mapQuery(s)).join('|');
   const wp = waypoints ? `&waypoints=${enc(waypoints)}` : '';
-  return `https://www.google.com/maps/dir/?api=1&origin=${enc(origin)}&destination=${enc(destination)}${wp}&travelmode=${mode}`;
+  return `https://www.google.com/maps/dir/?api=1&origin=${enc(origin)}&destination=${enc(destination)}${wp}&travelmode=${mode}&hl=ja&gl=JP`;
+}
+function segmentDirUrl(a, b, mode='walking'){
+  return `https://www.google.com/maps/dir/?api=1&origin=${enc(mapQuery(a))}&destination=${enc(mapQuery(b))}&travelmode=${mode}&hl=ja&gl=JP`;
 }
 function embedRouteUrl(day){
-  // 修复重点：Google 老式 embed 需要把中间站写进 daddr；否则第一站=最后一站时会变成“酒店到酒店”。
+  // 使用日文地名/日文地址生成多站点路线，避免英文罗马字地址识别失败。
   const stops = day.stops;
-  const origin = stops[0].address || stops[0].name;
-  const daddr = stops.slice(1).map(s=>s.address || s.name).join(' to: ');
-  if(!daddr) return `https://www.google.com/maps?q=${enc(origin)}&output=embed&hl=zh-CN`;
-  return `https://www.google.com/maps?f=d&source=s_d&hl=zh-CN&geocode=&saddr=${enc(origin)}&daddr=${enc(daddr)}&dirflg=${legacyDirFlag(day)}&output=embed`;
+  const origin = mapQuery(stops[0]);
+  const daddr = stops.slice(1).map(s=>mapQuery(s)).join(' to: ');
+  if(!daddr) return `https://www.google.com/maps?q=${enc(origin)}&output=embed&hl=ja&gl=JP`;
+  return `https://www.google.com/maps?f=d&source=s_d&hl=ja&gl=JP&geocode=&saddr=${enc(origin)}&daddr=${enc(daddr)}&dirflg=${legacyDirFlag(day)}&output=embed`;
 }
 function chunkedRouteLinks(day){
   const mode = routeMode(day);
-  const links = [`<a class="btn" target="_blank" rel="noopener" href="${mapsDirUrl(day.stops, mode)}">整日路线规划</a>`];
+  const links = [`<a class="btn" target="_blank" rel="noopener" href="${mapsDirUrl(day.stops, mode)}">整日路线规划（日文地点）</a>`];
   if(day.stops.length > 10){
     const mid = Math.ceil(day.stops.length / 2);
     const first = day.stops.slice(0, mid + 1);
@@ -282,16 +728,17 @@ function chunkedRouteLinks(day){
   return links.join('');
 }
 function routeBoard(day){
-  return `<div class="route-fix">已改成“起点 → 中间站 → 终点”的多站点路线。若 Google 嵌入地图因站点过多或公交/步行混合而显示不完整，请用下方“分段路线”或按钮打开 Google Maps。</div>` +
-    day.stops.map((p,i)=>`<div class="route-board"><div class="route-num">${i+1}</div><div class="route-line"><div class="route-time">${html(p.time||'')}</div><div class="route-name">${html(p.name)}</div><div class="route-note">${html(p.note||'')}</div></div></div>`).join('');
+  return `<div class="route-fix">已改成“起点 → 中间站 → 终点”的多站点路线，并且所有 Google Maps 查询优先使用日文名称/日文地址。若 Google 嵌入地图因站点过多或公交/步行混合而显示不完整，请用下方“分段路线”。</div>` +
+    day.stops.map((p,i)=>`<div class="route-board"><div class="route-num">${i+1}</div><div class="route-line"><div class="route-time">${html(p.time||'')}</div><div class="route-name">${placeTitleHtml(p)}</div><div class="route-note">${html(p.note||'')}</div></div></div>`).join('');
 }
 function placeEmbed(q){
   if(GOOGLE_MAPS_API_KEY && GOOGLE_MAPS_API_KEY !== 'YOUR_GOOGLE_MAPS_API_KEY'){
-    return `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${enc(q)}`;
+    return `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${enc(q)}&language=ja&region=JP`;
   }
-  return `https://www.google.com/maps?q=${enc(q)}&output=embed`;
+  return `https://www.google.com/maps?q=${enc(q)}&output=embed&hl=ja&gl=JP`;
 }
 function html(s){return String(s).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
+
 function render(){
   document.getElementById('toc').innerHTML = itinerary.map(d=>`<a href="#${d.id}">${d.date}</a>`).join('') + '<a href="#overview">总览</a>';
   document.getElementById('overviewTable').innerHTML = `<table><thead><tr><th>日期</th><th>住宿</th><th>主题</th><th>重点</th></tr></thead><tbody>` + itinerary.map(d=>`<tr><td><strong>${d.date}</strong></td><td>${html(d.stay)}</td><td>${html(d.title)}</td><td>${html(d.summary)}</td></tr>`).join('') + `</tbody></table>`;
@@ -301,21 +748,25 @@ function render(){
     const places = d.stops.map((p,i)=>`
       <article class="place">
         <div class="place-body">
-          <h4><span class="tag">${i+1}</span>${html(p.name)}</h4>
-          <div class="addr">${html(p.address)}</div>
+          <h4><span class="tag">${i+1}</span>${placeTitleHtml(p)}</h4>
+          <div class="addr">${placeAddressHtml(p)}</div>
           <p>${html(p.note||'')}</p>
-          <a target="_blank" rel="noopener" href="${mapsSearchUrl(p.address || p.name)}">在 Google Maps 打开地点</a>
+          <a target="_blank" rel="noopener" href="${mapsSearchUrl(mapQuery(p))}">在 Google Maps 打开地点（日文检索）</a>
         </div>
-        <div class="place-map-wrap"><iframe loading="lazy" class="place-map" src="${placeEmbed(p.address || p.name)}" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <div class="place-map-wrap"><iframe loading="lazy" class="place-map" src="${placeEmbed(mapQuery(p))}" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>
       </article>`).join('');
-    const segs = d.stops.slice(0,-1).map((p,i)=>`<div class="segment"><span class="mode">${d.segments[i] === 'TRANSIT' ? '公共交通' : '步行'}</span>：${html(p.name)} → ${html(d.stops[i+1].name)}<br><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=${enc(p.address || p.name)}&destination=${enc(d.stops[i+1].address || d.stops[i+1].name)}&travelmode=${d.segments[i] === 'TRANSIT' ? 'transit':'walking'}">打开本段路线</a></div>`).join('');
+    const segs = d.stops.slice(0,-1).map((p,i)=>{
+      const mode = d.segments[i] === 'TRANSIT' ? 'transit':'walking';
+      const modeText = d.segments[i] === 'TRANSIT' ? '公共交通' : '步行';
+      return `<div class="segment"><span class="mode">${modeText}</span>：${html(placeTitleText(p))} → ${html(placeTitleText(d.stops[i+1]))}<br><span class="small">GMap 查询：${html(mapQuery(p))} → ${html(mapQuery(d.stops[i+1]))}</span><br><a target="_blank" rel="noopener" href="${segmentDirUrl(p, d.stops[i+1], mode)}">打开本段路线（日文地点）</a></div>`;
+    }).join('');
     return `<section class="day" id="${d.id}">
       <div class="day-head"><div><span class="date-tag">${d.date}</span><h2>${html(d.title)}</h2><div class="stay">${html(d.stay)}</div></div><a class="btn" target="_blank" rel="noopener" href="${dirUrl}">打开整日 Google Maps 路线</a></div>
       <p>${html(d.summary)}</p>
       <div class="notes"><div class="note ok"><strong>要点</strong><br>${d.highlights.map(x=>`・${html(x)}`).join('<br>')}</div><div class="note warn"><strong>票券 / 时间风险</strong><br>${html(d.ticket)}</div></div>
       <h3>每日路线图</h3>
       <div class="route-map" id="map-${idx}"><iframe loading="lazy" src="${embedRouteUrl(d)}" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-      <div class="route-status" id="status-${idx}">已使用多站点嵌入路线：不会再只计算“第一站 → 最后一站”。</div>
+      <div class="route-status" id="status-${idx}">路线图与所有地点按钮已优先使用日文地名/日文地址，避免英文罗马字地址无法识别。</div>
       <details><summary>如果上方地图加载失败，查看文字路线顺序</summary>${routeBoard(d)}</details>
       <div class="route-actions">${chunkedRouteLinks(d)}</div>
       <details open><summary>分段路线：步行 / 公共交通</summary><div class="segments">${segs}</div></details>
@@ -323,12 +774,13 @@ function render(){
     </section>`;
   }).join('');
 }
+
 render();
 
 function loadGoogleMapsIfConfigured(){
   if(!GOOGLE_MAPS_API_KEY || GOOGLE_MAPS_API_KEY === 'YOUR_GOOGLE_MAPS_API_KEY') return;
   const s = document.createElement('script');
-  s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initGoogleRouteMaps&language=zh-CN&region=JP`;
+  s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initGoogleRouteMaps&language=ja&region=JP`;
   s.async = true; s.defer = true;
   document.head.appendChild(s);
 }
@@ -345,11 +797,11 @@ window.initGoogleRouteMaps = function(){
     const info = new google.maps.InfoWindow();
 
     day.stops.forEach((p, i)=>{
-      geocoder.geocode({address:p.address, region:'JP'}, (res, geostatus)=>{
+      geocoder.geocode({address:mapQuery(p), region:'JP'}, (res, geostatus)=>{
         if(geostatus === 'OK' && res[0]){
-          const marker = new google.maps.Marker({map, position:res[0].geometry.location, label:String(i+1), title:p.name});
+          const marker = new google.maps.Marker({map, position:res[0].geometry.location, label:String(i+1), title:placeTitleText(p)});
           bounds.extend(res[0].geometry.location); map.fitBounds(bounds);
-          marker.addListener('click', ()=>{info.setContent(`<strong>${html(p.name)}</strong><br>${html(p.address)}<br>${html(p.note||'')}`); info.open(map, marker);});
+          marker.addListener('click', ()=>{info.setContent(`<strong>${html(placeTitleText(p))}</strong><br>${html(placeAddressJa(p))}<br>${html(p.note||'')}`); info.open(map, marker);});
         }
       });
     });
@@ -358,7 +810,7 @@ window.initGoogleRouteMaps = function(){
     day.stops.slice(0,-1).forEach((p, i)=>{
       const renderer = new google.maps.DirectionsRenderer({map, suppressMarkers:true, preserveViewport:true, polylineOptions:{strokeWeight:5, strokeOpacity:.72}});
       const mode = day.segments[i] || 'WALKING';
-      service.route({origin:p.address || p.name, destination:day.stops[i+1].address || day.stops[i+1].name, travelMode:google.maps.TravelMode[mode]}, (result, routeStatus)=>{
+      service.route({origin:mapQuery(p), destination:mapQuery(day.stops[i+1]), travelMode:google.maps.TravelMode[mode]}, (result, routeStatus)=>{
         completed++;
         if(routeStatus === 'OK') renderer.setDirections(result); else failed++;
         if(completed === day.stops.length-1){
@@ -371,6 +823,6 @@ window.initGoogleRouteMaps = function(){
 }
 loadGoogleMapsIfConfigured();
 </script>
-<!-- route-map-fix: multi-stop embed and split route buttons, 2026-05-03 -->
+<!-- route-map-fix: Japanese Google Maps queries, bilingual labels, 2026-05-03 -->
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>关西 2026/5/4–5/13 每日行程地图｜大阪・京都・奈良・神户・宇治</title>
+  <title>关西 2026/5/4–5/13 最终行程地图｜大阪・京都・姬路・神户・奈良・宇治</title>
   <style>
     :root{
       --bg:#f6f3ee; --card:#ffffff; --ink:#222; --muted:#6f6a63; --line:#ded7cc;
@@ -40,10 +40,10 @@
 <body>
 <header class="hero">
   <div class="hero-inner">
-    <h1>关西 10 日行程地图<br>大阪・京都・奈良・神户・宇治</h1>
-    <p class="subtitle">2026/5/4–5/13｜大阪住 Floral Hotel・East Shinsaibashi，京都住四条乌丸。网页内置每日多站点路线图、每个地点的小地图、步行/公共交通分段按钮和 Google Maps 链接。</p>
+    <h1>关西 10 日最终行程地图<br>大阪・京都・姬路・神户・奈良・宇治</h1>
+    <p class="subtitle">2026/5/4–5/13｜大阪住 Floral Hotel・East Shinsaibashi，京都住四条乌丸。新版加入姬路城+神户港口日、京都大学左京区线、宇治转场日，并保留每日多站点路线图、地点小地图和 Google Maps 路线链接。</p>
     <div class="pillbar">
-      <span class="pill">大阪 5/4–5/7，5/12–5/13</span><span class="pill">京都 5/8–5/11</span><span class="pill">宇治加入《吹响！上低音号》巡礼</span><span class="pill">路线图已修复为多站点，不再酒店→酒店</span>
+      <span class="pill">大阪 5/4–5/7，5/12–5/13</span><span class="pill">京都 5/8–5/11</span><span class="pill">5/6 新增姬路城 + 神户港口</span><span class="pill">5/10 加入京都大学</span><span class="pill">5/12 宇治转场到大阪</span>
     </div>
   </div>
 </header>
@@ -52,7 +52,7 @@
   <section class="grid summary">
     <div class="card"><h3>大阪住宿</h3><p><strong>Floral Hotel・East Shinsaibashi</strong><br><span class="small">2-6-4 Shimanouchi, Chuo-ku, Osaka / 大阪市中央区島之内2-6-4</span></p><a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=2-6-4%20Shimanouchi%2C%20Chuo-ku%2C%20Osaka">打开大阪酒店地图</a></div>
     <div class="card"><h3>京都住宿</h3><p><strong>四条乌丸附近</strong><br><span class="small">以 Karasuma Station / Shijo Station 为导航锚点。实际酒店确定后，把 HTML 数据中的“京都住宿”地址替换成酒店名即可。</span></p><a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Shijo%20Karasuma%2C%20Kyoto">打开京都住宿锚点</a></div>
-    <div class="card"><h3>关键提醒</h3><p>奈良 21:30 前离开近铁奈良较稳；神户 22:30 前离开三宫较稳；宇治 20:30 前回京都很安全；5/13 若 22:00 航班，18:00–18:30 离开酒店。</p></div>
+    <div class="card"><h3>关键提醒</h3><p>姬路城请优先上午入城；嵯峨野小火车 5/9 09:30 龟冈发车需倒推；京都大学综合博物馆 5/10 周日可安排；5/12 宇治轻装转场；5/13 若 22:00 航班，18:00–18:30 离开酒店。</p></div>
   </section>
 
   <section class="api-box">
@@ -78,176 +78,858 @@ const GOOGLE_MAPS_API_KEY = "YOUR_GOOGLE_MAPS_API_KEY";
 
 const itinerary = [
   {
-    id:"d0504", date:"5/4 周一", title:"到达大阪，轻松适应", stay:"大阪｜Floral Hotel・East Shinsaibashi",
-    summary:"14:00 到达后去酒店；晚上道顿堀、法善寺横丁、千日前。黄金周人多，不排硬景点。",
-    highlights:["到达日只安排酒店周边步行圈", "吃章鱼烧、串炸、拉面或回转寿司", "深夜可步行或短程打车回岛之内"],
-    ticket:"无需提前订票。热门餐厅可当天看排队/预约。",
-    stops:[
-      {time:"14:00", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"大阪住宿；先放行李。"},
-      {time:"傍晚", name:"Dotonbori / 道顿堀", address:"Dotonbori, Chuo-ku, Osaka", note:"大阪经典夜景和小吃街。"},
-      {time:"晚间", name:"Hozenji Yokocho / 法善寺横丁", address:"1-2 Nanba, Chuo-ku, Osaka", note:"小巷氛围好，适合散步拍照。"},
-      {time:"晚间", name:"Sennichimae / 千日前", address:"Sennichimae, Chuo-ku, Osaka", note:"觅食、回酒店都方便。"},
-      {time:"夜", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"回酒店休息。"}
+    "id": "d0504",
+    "date": "5/4 周一",
+    "title": "到达大阪：心斋桥・道顿堀夜游",
+    "stay": "大阪｜Floral Hotel・East Shinsaibashi",
+    "summary": "抵达后先入住/寄存行李，晚上只走酒店周边步行圈：心斋桥、道顿堀、法善寺横丁、难波。到达日不安排远距离景点，保留体力。",
+    "highlights": [
+      "到达日只安排东心斋桥、道顿堀、难波步行圈",
+      "晚餐可在道顿堀/法善寺横丁解决",
+      "适合补现金、交通卡、药妆小补货"
     ],
-    segments:["WALKING","WALKING","WALKING","WALKING"]
+    "ticket": "无需提前订票。若抵达较晚，直接压缩为道顿堀晚饭 + 戎桥夜景即可。",
+    "stops": [
+      {
+        "time": "下午",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "大阪住宿；先放行李/入住。"
+      },
+      {
+        "time": "傍晚",
+        "name": "Shinsaibashi-suji Shopping Street / 心斋桥筋商店街",
+        "address": "Shinsaibashi-suji, Chuo-ku, Osaka",
+        "note": "商店街和药妆补给，离酒店近。"
+      },
+      {
+        "time": "晚间",
+        "name": "Dotonbori / 道顿堀",
+        "address": "Dotonbori, Chuo-ku, Osaka",
+        "note": "大阪经典夜景、Glico 看板、小吃。"
+      },
+      {
+        "time": "晚间",
+        "name": "Hozenji Yokocho / 法善寺横丁",
+        "address": "1-2 Nanba, Chuo-ku, Osaka",
+        "note": "小巷氛围好，适合饭后散步。"
+      },
+      {
+        "time": "夜",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "步行或短程打车回酒店。"
+      }
+    ],
+    "segments": [
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING"
+    ]
   },
   {
-    id:"d0505", date:"5/5 周二", title:"大阪市井文化 + 城市夜景", stay:"大阪｜Floral Hotel・East Shinsaibashi",
-    summary:"大阪生活今昔馆、中崎町、天神桥筋商店街，晚上梅田蓝天大厦外观/梅田地下街觅食。",
-    highlights:["大阪生活今昔馆建议提前买预售票", "中崎町适合咖啡和小店", "23:00 前从梅田往回较稳"],
-    ticket:"建议提前买大阪生活今昔馆门票；梅田蓝天大厦若只看外观无需票，上展望台再提前买。",
-    stops:[
-      {time:"上午", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"从酒店出发。"},
-      {time:"上午", name:"Osaka Museum of Housing and Living / 大阪生活今昔馆", address:"6-4-20 Tenjinbashi, Kita-ku, Osaka", note:"江户时代城市空间复原，室内景点。"},
-      {time:"下午", name:"Nakazakicho / 中崎町", address:"Nakazakicho, Kita-ku, Osaka", note:"咖啡街、小店、老屋改造区域。"},
-      {time:"下午", name:"Tenjinbashisuji Shopping Street / 天神桥筋商店街", address:"Tenjinbashisuji, Kita-ku, Osaka", note:"定食、乌冬、可乐饼、甜点。"},
-      {time:"夜", name:"Umeda Sky Building / 梅田蓝天大厦", address:"1-1-88 Oyodonaka, Kita-ku, Osaka", note:"本行程以外观/周边夜景为主；上展望台需购票。"},
-      {time:"夜", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"地铁或打车回酒店。"}
+    "id": "d0505",
+    "date": "5/5 周二",
+    "title": "大阪增强日：大阪城・中之岛・梅田・通天阁",
+    "stay": "大阪｜Floral Hotel・East Shinsaibashi",
+    "summary": "把大阪核心看点补足：上午大阪城公园和天守阁，中午中之岛/北浜，下午梅田商圈，傍晚梅田蓝天大厦，晚上新世界和通天阁。路线从中部到北部再回南部，尽量顺路。",
+    "highlights": [
+      "大阪城公园 + 天守阁作为上午主景点",
+      "中之岛/北浜负责河岸建筑和咖啡休息",
+      "梅田蓝天大厦适合傍晚到夜景",
+      "新世界/通天阁放晚上，氛围更强"
     ],
-    segments:["TRANSIT","WALKING","WALKING","WALKING","TRANSIT"]
+    "ticket": "大阪城天守阁、梅田蓝天大厦、通天阁若要入场建议提前查票；若当天太累，通天阁可只看外观和新世界街区。",
+    "stops": [
+      {
+        "time": "08:30",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "从酒店出发。"
+      },
+      {
+        "time": "09:00",
+        "name": "Osaka Castle Park / 大阪城公园",
+        "address": "Osaka Castle Park, Chuo-ku, Osaka",
+        "note": "先走公园、护城河、天守阁外观机位。"
+      },
+      {
+        "time": "09:45",
+        "name": "Osaka Castle Museum / 大阪城天守阁",
+        "address": "1-1 Osakajo, Chuo-ku, Osaka",
+        "note": "大阪代表性城郭博物馆，上午入内更稳。"
+      },
+      {
+        "time": "12:00",
+        "name": "Kitahama / 北浜",
+        "address": "Kitahama, Chuo-ku, Osaka",
+        "note": "午餐/咖啡，作为大阪城到中之岛的过渡。"
+      },
+      {
+        "time": "13:00",
+        "name": "Nakanoshima / 中之岛建筑散步",
+        "address": "Nakanoshima, Kita-ku, Osaka",
+        "note": "河岸建筑、中央公会堂外观、大阪市役所周边。"
+      },
+      {
+        "time": "15:00",
+        "name": "Grand Front Osaka / 大阪 Grand Front",
+        "address": "4-1 Ofukacho, Kita-ku, Osaka",
+        "note": "梅田商圈、购物和休息。"
+      },
+      {
+        "time": "16:30",
+        "name": "HEP FIVE / HEP FIVE 摩天轮",
+        "address": "5-15 Kakudacho, Kita-ku, Osaka",
+        "note": "梅田地标；可选外观或坐摩天轮。"
+      },
+      {
+        "time": "17:30",
+        "name": "Umeda Sky Building / 梅田蓝天大厦",
+        "address": "1-1-88 Oyodonaka, Kita-ku, Osaka",
+        "note": "适合傍晚和夜景；若上展望台需购票。"
+      },
+      {
+        "time": "20:00",
+        "name": "Tsutenkaku & Shinsekai / 通天阁・新世界",
+        "address": "1-18-6 Ebisuhigashi, Naniwa-ku, Osaka",
+        "note": "炸串、复古招牌、通天阁夜景。"
+      },
+      {
+        "time": "22:00",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "地铁或打车回酒店。"
+      }
+    ],
+    "segments": [
+      "TRANSIT",
+      "WALKING",
+      "TRANSIT",
+      "WALKING",
+      "TRANSIT",
+      "WALKING",
+      "WALKING",
+      "TRANSIT",
+      "TRANSIT"
+    ]
   },
   {
-    id:"d0506", date:"5/6 周三", title:"奈良一日：古都、鹿、町家", stay:"大阪｜Floral Hotel・East Shinsaibashi",
-    summary:"大阪往返奈良：近铁奈良站、兴福寺、奈良公园、东大寺、春日大社外苑、奈良町。",
-    highlights:["推荐近铁大阪难波 ⇄ 近铁奈良", "黄金周补休日，人流仍高", "21:30 前离开近铁奈良站较稳"],
-    ticket:"普通近铁车票不需预订；寺社门票现场购买。若坐近铁特急才需要另买特急券。",
-    stops:[
-      {time:"08:00", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"步行/地铁到大阪难波。"},
-      {time:"08:30", name:"Osaka-Namba Station / 大阪难波站", address:"Osaka-Namba Station, Osaka", note:"乘近铁前往近铁奈良。"},
-      {time:"09:20", name:"Kintetsu Nara Station / 近铁奈良站", address:"Kintetsu Nara Station, Nara", note:"奈良步行线起点。"},
-      {time:"上午", name:"Kofuku-ji Temple / 兴福寺", address:"48 Noboriojicho, Nara", note:"五重塔区域、国宝馆可现场决定。"},
-      {time:"上午", name:"Nara Park / 奈良公园", address:"Nara Park, Nara", note:"看鹿但不要只停留在鹿。"},
-      {time:"中午", name:"Todai-ji Temple / 东大寺", address:"406-1 Zoshicho, Nara", note:"大佛殿是奈良核心景点。"},
-      {time:"下午", name:"Kasuga Taisha / 春日大社外苑", address:"160 Kasuganocho, Nara", note:"以外苑和参道氛围为主。"},
-      {time:"傍晚", name:"Naramachi / 奈良町", address:"Naramachi, Nara", note:"町家、杂货小店、柿叶寿司、茶粥。"},
-      {time:"晚", name:"Kintetsu Nara Station / 近铁奈良站", address:"Kintetsu Nara Station, Nara", note:"建议 21:30 前从这里回大阪。"},
-      {time:"夜", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"回大阪酒店。"}
+    "id": "d0506",
+    "date": "5/6 周三",
+    "title": "姬路城 + 神户港口一日",
+    "stay": "大阪｜Floral Hotel・East Shinsaibashi",
+    "summary": "新增高看点日：上午姬路城和好古园，下午转神户三宫/元町，傍晚美利坚公园和神户塔看港口夕景，晚上回大阪。比单独神户半日更紧凑，也更有重量级景点。",
+    "highlights": [
+      "姬路城是本次新增的重量级景点",
+      "好古园紧邻姬路城，适合顺路补庭园",
+      "下午保留小红书神户 City Walk 精华：三宫、南京町、港口",
+      "傍晚把美利坚公园和神户塔作为收尾"
     ],
-    segments:["WALKING","TRANSIT","WALKING","WALKING","WALKING","WALKING","WALKING","WALKING","TRANSIT"]
+    "ticket": "姬路城和好古园建议买联票或提前确认票务；姬路城需注意最晚入城时间。神户塔若要登塔，建议出行前确认营业时间和票。",
+    "stops": [
+      {
+        "time": "07:20",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "早出发，先去大阪站/JR 方向。"
+      },
+      {
+        "time": "08:00",
+        "name": "Osaka Station / 大阪站",
+        "address": "Osaka Station, Osaka",
+        "note": "乘 JR 前往姬路。"
+      },
+      {
+        "time": "09:15",
+        "name": "Himeji Station / 姬路站",
+        "address": "Himeji Station, Hyogo",
+        "note": "从车站步行或巴士到姬路城。"
+      },
+      {
+        "time": "09:45",
+        "name": "Himeji Castle / 姬路城",
+        "address": "68 Honmachi, Himeji, Hyogo",
+        "note": "白鹭城，世界遗产；上午优先入城。"
+      },
+      {
+        "time": "12:00",
+        "name": "Koko-en Garden / 好古园",
+        "address": "68 Honmachi, Himeji, Hyogo",
+        "note": "姬路城旁的日式庭园，适合午前后补景。"
+      },
+      {
+        "time": "13:00",
+        "name": "Himeji Station / 姬路站",
+        "address": "Himeji Station, Hyogo",
+        "note": "午餐后转往神户三宫/元町。"
+      },
+      {
+        "time": "14:00",
+        "name": "Ikuta Shrine / 生田神社",
+        "address": "1-2-1 Shimoyamatedori, Chuo-ku, Kobe",
+        "note": "三宫附近，按小红书 City Walk 作为神户起点。"
+      },
+      {
+        "time": "14:45",
+        "name": "Sannomiya Center Gai / 三宫中心街",
+        "address": "Sannomiya Center Gai, Kobe",
+        "note": "商店街，短逛即可。"
+      },
+      {
+        "time": "15:30",
+        "name": "Nankinmachi / 南京町",
+        "address": "Nankinmachi, Chuo-ku, Kobe",
+        "note": "中华街小吃、元町周边。"
+      },
+      {
+        "time": "16:45",
+        "name": "Meriken Park / 美利坚公园",
+        "address": "Meriken Park, Kobe",
+        "note": "神户港口、海边草坪、拍照。"
+      },
+      {
+        "time": "17:30",
+        "name": "Kobe Port Tower / 神户塔",
+        "address": "5-5 Hatobacho, Chuo-ku, Kobe",
+        "note": "港口地标，适合傍晚到夜景。"
+      },
+      {
+        "time": "19:00",
+        "name": "Kobe-Sannomiya Station / 神户三宫站",
+        "address": "Kobe-Sannomiya Station, Kobe",
+        "note": "建议 22:30 前离开三宫；本日建议 19 点左右回大阪。"
+      },
+      {
+        "time": "20:15",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "回大阪酒店休息。"
+      }
+    ],
+    "segments": [
+      "TRANSIT",
+      "TRANSIT",
+      "TRANSIT",
+      "WALKING",
+      "TRANSIT",
+      "TRANSIT",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "TRANSIT",
+      "TRANSIT"
+    ]
   },
   {
-    id:"d0507", date:"5/7 周四", title:"神户一日：港口城市 + 灘酒文化", stay:"大阪｜Floral Hotel・East Shinsaibashi",
-    summary:"大阪往返神户。建议把白鹤酒造资料馆前置到下午早段，避免 16:00 最终入馆风险。",
-    highlights:["阪神大阪难波 ⇄ 神户三宫最贴合酒店位置", "酒藏资料馆建议 15:30 前到，16:00 后通常不能入馆", "22:30 前从三宫回大阪较稳"],
-    ticket:"普通铁路不需预订；白鹤酒造资料馆个人参观通常不需预约。",
-    stops:[
-      {time:"08:30", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"到大阪难波乘阪神/近铁方向。"},
-      {time:"09:00", name:"Osaka-Namba Station / 大阪难波站", address:"Osaka-Namba Station, Osaka", note:"前往神户三宫。"},
-      {time:"10:00", name:"Kobe-Sannomiya Station / 神户三宫站", address:"Kobe-Sannomiya Station, Kobe", note:"神户市内起点。"},
-      {time:"上午", name:"Kitano Ijinkan-gai / 北野异人馆街", address:"Kitano-cho, Chuo-ku, Kobe", note:"以外观和街区散步为主。"},
-      {time:"中午", name:"Nankinmachi / 南京町", address:"Nankinmachi, Chuo-ku, Kobe", note:"午餐、小吃、元町周边。"},
-      {time:"下午", name:"Hakutsuru Sake Brewery Museum / 白鹤酒造资料馆", address:"4-5-5 Sumiyoshiminami-machi, Higashinada-ku, Kobe", note:"建议前置；个人入馆免费，注意最晚入馆时间。"},
-      {time:"傍晚", name:"Kobe Harborland / 神户港・Harborland", address:"Kobe Harborland, Chuo-ku, Kobe", note:"港口夜景、Mosaic 方向。"},
-      {time:"晚", name:"Kobe-Sannomiya Station / 神户三宫站", address:"Kobe-Sannomiya Station, Kobe", note:"建议 22:30 前从三宫回大阪。"},
-      {time:"夜", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"回大阪酒店，整理行李。"}
+    "id": "d0507",
+    "date": "5/7 周四",
+    "title": "奈良一日：古都、鹿、东大寺、若草山",
+    "stay": "大阪｜Floral Hotel・East Shinsaibashi",
+    "summary": "大阪往返奈良，按近铁奈良步行圈串联：中谷堂、兴福寺、东大寺、奈良公园、水谷茶屋、春日大社、若草山。路线集中，基本不走回头路。",
+    "highlights": [
+      "近铁大阪难波 ⇄ 近铁奈良最顺",
+      "上午先做兴福寺、东大寺等核心寺社",
+      "午后走奈良公园、水谷茶屋、春日大社",
+      "若草山视体力决定到半山或山顶"
     ],
-    segments:["WALKING","TRANSIT","WALKING","WALKING","TRANSIT","TRANSIT","TRANSIT","TRANSIT"]
+    "ticket": "近铁普通车不需提前订票；东大寺等现场购票。喂鹿注意使用官方鹿仙贝，不要喂其他食物。",
+    "stops": [
+      {
+        "time": "08:00",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "步行/地铁到大阪难波。"
+      },
+      {
+        "time": "08:30",
+        "name": "Osaka-Namba Station / 大阪难波站",
+        "address": "Osaka-Namba Station, Osaka",
+        "note": "乘近铁前往近铁奈良。"
+      },
+      {
+        "time": "09:20",
+        "name": "Kintetsu Nara Station / 近铁奈良站",
+        "address": "Kintetsu Nara Station, Nara",
+        "note": "奈良步行线起点。"
+      },
+      {
+        "time": "09:30",
+        "name": "Nakatanidou / 中谷堂",
+        "address": "29 Hashimotocho, Nara",
+        "note": "艾草饼和高速捣麻糬表演；短停。"
+      },
+      {
+        "time": "10:00",
+        "name": "Kofuku-ji Temple / 兴福寺",
+        "address": "48 Noboriojicho, Nara",
+        "note": "五重塔区域、国宝馆可现场决定。"
+      },
+      {
+        "time": "11:00",
+        "name": "Todai-ji Temple / 东大寺",
+        "address": "406-1 Zoshicho, Nara",
+        "note": "大佛殿是奈良核心景点。"
+      },
+      {
+        "time": "12:30",
+        "name": "Nara Park / 奈良公园",
+        "address": "Nara Park, Nara",
+        "note": "看鹿，但不要只停留在鹿。"
+      },
+      {
+        "time": "13:30",
+        "name": "Mizutani Chaya / 水谷茶屋",
+        "address": "30 Kasuganocho, Nara",
+        "note": "茅草屋茶屋，适合午餐/休息。"
+      },
+      {
+        "time": "14:30",
+        "name": "Kasuga Taisha / 春日大社",
+        "address": "160 Kasuganocho, Nara",
+        "note": "石灯笼参道和神社氛围。"
+      },
+      {
+        "time": "16:00",
+        "name": "Mount Wakakusa / 若草山",
+        "address": "Mount Wakakusa, Nara",
+        "note": "半山即可俯瞰奈良盆地；注意下山时间。"
+      },
+      {
+        "time": "18:00",
+        "name": "Kintetsu Nara Station / 近铁奈良站",
+        "address": "Kintetsu Nara Station, Nara",
+        "note": "返回大阪。"
+      },
+      {
+        "time": "19:30",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "回大阪酒店。"
+      }
+    ],
+    "segments": [
+      "WALKING",
+      "TRANSIT",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "TRANSIT"
+    ]
   },
   {
-    id:"d0508", date:"5/8 周五", title:"京都入住：伏见稻荷 + 祇园夜行", stay:"京都｜四条乌丸",
-    summary:"上午大阪到京都，寄存/入住；下午伏见稻荷，傍晚鸭川、先斗町、祇园、花见小路外围。",
-    highlights:["大阪到京都普通车无需预约", "伏见稻荷免费、全天开放", "从山脚往上走 30–45 分钟人会少很多"],
-    ticket:"无需提前订票。若行李多、想保证座位，可考虑阪急 PRiVACE 指定席。",
-    stops:[
-      {time:"09:30", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"退房后前往京都。"},
-      {time:"11:00", name:"Shijo Karasuma / 四条乌丸", address:"Shijo Karasuma, Kyoto", note:"京都住宿锚点；实际酒店确定后替换。"},
-      {time:"下午", name:"Fushimi Inari Taisha / 伏见稻荷大社", address:"68 Fukakusa Yabunouchicho, Fushimi-ku, Kyoto", note:"千本鸟居，建议往山上走 30–45 分钟。"},
-      {time:"傍晚", name:"Kamo River / 鸭川", address:"Kamo River, Kyoto", note:"傍晚散步。"},
-      {time:"夜", name:"Pontocho Alley / 先斗町", address:"Pontocho, Nakagyo-ku, Kyoto", note:"晚餐、河边氛围。"},
-      {time:"夜", name:"Gion & Hanamikoji / 祇园・花见小路外围", address:"Hanamikoji Street, Higashiyama-ku, Kyoto", note:"只走公共街区，注意礼仪。"},
-      {time:"夜", name:"Shijo Karasuma / 四条乌丸", address:"Shijo Karasuma, Kyoto", note:"回京都住宿。"}
+    "id": "d0508",
+    "date": "5/8 周五",
+    "title": "大阪转京都：清水寺・二三年坂・祇园",
+    "stay": "京都｜四条乌丸",
+    "summary": "上午从大阪转京都，放行李后走东山经典线：清水寺、二年坂/三年坂、八坂神社、花见小路、鸭川/先斗町。",
+    "highlights": [
+      "先完成跨城和行李寄存，再开始京都游玩",
+      "清水寺到祇园是连续下坡路线，顺路",
+      "晚上鸭川/先斗町收尾，不再加远点"
     ],
-    segments:["TRANSIT","TRANSIT","TRANSIT","WALKING","WALKING","TRANSIT"]
+    "ticket": "普通交通不需订票；清水寺现场购票即可。周五下午东山人会多，尽量轻装。",
+    "stops": [
+      {
+        "time": "09:00",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "大阪退房，前往京都。"
+      },
+      {
+        "time": "10:30",
+        "name": "Shijo Karasuma / 四条乌丸",
+        "address": "Shijo Karasuma, Kyoto",
+        "note": "京都住宿锚点；先寄存行李。"
+      },
+      {
+        "time": "11:30",
+        "name": "Kiyomizu-dera Temple / 清水寺",
+        "address": "1-294 Kiyomizu, Higashiyama-ku, Kyoto",
+        "note": "京都经典景点，尽量避开正午最拥挤时段。"
+      },
+      {
+        "time": "13:00",
+        "name": "Sannenzaka & Ninenzaka / 三年坂・二年坂",
+        "address": "Sannenzaka Ninenzaka, Kyoto",
+        "note": "石板路、町屋、小店。"
+      },
+      {
+        "time": "15:00",
+        "name": "Yasaka Shrine / 八坂神社",
+        "address": "625 Gionmachi Kitagawa, Higashiyama-ku, Kyoto",
+        "note": "从二年坂一路下行可达。"
+      },
+      {
+        "time": "16:00",
+        "name": "Gion & Hanamikoji / 祇园・花见小路外围",
+        "address": "Hanamikoji Street, Higashiyama-ku, Kyoto",
+        "note": "公共街区散步，注意舞伎/艺伎礼仪。"
+      },
+      {
+        "time": "17:30",
+        "name": "Kamo River / 鸭川",
+        "address": "Kamo River, Kyoto",
+        "note": "傍晚散步。"
+      },
+      {
+        "time": "18:30",
+        "name": "Pontocho Alley / 先斗町",
+        "address": "Pontocho, Nakagyo-ku, Kyoto",
+        "note": "晚餐、河边氛围。"
+      },
+      {
+        "time": "21:00",
+        "name": "Shijo Karasuma / 四条乌丸",
+        "address": "Shijo Karasuma, Kyoto",
+        "note": "回京都住宿。"
+      }
+    ],
+    "segments": [
+      "TRANSIT",
+      "TRANSIT",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "TRANSIT"
+    ]
   },
   {
-    id:"d0509", date:"5/9 周六", title:"京都东山：清水寺、二年坂、哲学之道", stay:"京都｜四条乌丸",
-    summary:"清水寺、三年坂/二年坂、八坂神社、南禅寺、哲学之道。周六尽量早出门。",
-    highlights:["清水寺建议 8:00 前后到", "京都经典日，人流高，别临时加太多点", "市内公交拥堵时可多用地铁+步行"],
-    ticket:"普通参拜现场购票即可；京都地铁巴士一日券可当天或前一晚购买。",
-    stops:[
-      {time:"07:30", name:"Shijo Karasuma / 四条乌丸", address:"Shijo Karasuma, Kyoto", note:"早出门避开人潮。"},
-      {time:"08:00", name:"Kiyomizu-dera Temple / 清水寺", address:"1-294 Kiyomizu, Higashiyama-ku, Kyoto", note:"京都经典景点，早到体验最好。"},
-      {time:"上午", name:"Sannenzaka & Ninenzaka / 三年坂・二年坂", address:"Sannenzaka Ninenzaka, Kyoto", note:"石板路，注意避开正午人潮。"},
-      {time:"上午", name:"Yasaka Shrine / 八坂神社", address:"625 Gionmachi Kitagawa, Higashiyama-ku, Kyoto", note:"从二年坂一路下行可达。"},
-      {time:"下午", name:"Nanzen-ji Temple / 南禅寺", address:"86 Nanzenji Fukuchicho, Sakyo-ku, Kyoto", note:"三门、水路阁一带。"},
-      {time:"下午", name:"Philosopher's Path / 哲学之道", address:"Philosopher's Path, Sakyo-ku, Kyoto", note:"慢走收尾。"},
-      {time:"傍晚", name:"Shijo Karasuma / 四条乌丸", address:"Shijo Karasuma, Kyoto", note:"回住宿或河原町晚餐。"}
+    "id": "d0509",
+    "date": "5/9 周六",
+    "title": "岚山西线：小火车・竹林・天龙寺・渡月桥",
+    "stay": "京都｜四条乌丸",
+    "summary": "围绕已定的嵯峨野小火车 09:30 龟冈发车倒推。先到小火车龟冈站，09:30–09:56 乘车回岚山/嵯峨方向，再走竹林、天龙寺、渡月桥。下午体力够可加大觉寺或嵯峨野小路。",
+    "highlights": [
+      "核心预约：09:30 小火车龟冈发车",
+      "当天不要先去竹林，否则会错过固定发车时间",
+      "下车后直接顺路进入岚山核心区",
+      "周六岚山人多，下午不要再硬塞太多点"
     ],
-    segments:["TRANSIT","WALKING","WALKING","TRANSIT","WALKING","TRANSIT"]
+    "ticket": "嵯峨野小火车按票面时间执行；请以票面终点为准。天龙寺/大觉寺现场购票即可。",
+    "stops": [
+      {
+        "time": "07:45",
+        "name": "Shijo Karasuma / 四条乌丸",
+        "address": "Shijo Karasuma, Kyoto",
+        "note": "早出发，倒推到小火车龟冈站。"
+      },
+      {
+        "time": "09:10",
+        "name": "Torokko Kameoka Station / 小火车龟冈站",
+        "address": "Torokko Kameoka Station, Kameoka, Kyoto",
+        "note": "建议 09:10 前到站。"
+      },
+      {
+        "time": "09:30",
+        "name": "Sagano Romantic Train：Kameoka Departure / 嵯峨野トロッコ列車・龟冈发车",
+        "address": "Torokko Kameoka Station, Kameoka, Kyoto",
+        "note": "09:30 从龟冈出发。"
+      },
+      {
+        "time": "09:53",
+        "name": "Torokko Arashiyama Station / 小火车岚山站",
+        "address": "Torokko Arashiyama Station, Kyoto",
+        "note": "若票面到嵯峨站，则按票面继续坐到嵯峨。"
+      },
+      {
+        "time": "10:05",
+        "name": "Arashiyama Bamboo Forest / 岚山竹林",
+        "address": "Arashiyama Bamboo Forest, Kyoto",
+        "note": "从小火车岚山站步行很近。"
+      },
+      {
+        "time": "11:00",
+        "name": "Tenryu-ji Temple / 天龙寺",
+        "address": "68 Susukinobaba-cho, Saga-Tenryuji, Ukyo-ku, Kyoto",
+        "note": "可入庭园，也可只走外围。"
+      },
+      {
+        "time": "12:30",
+        "name": "Togetsukyo Bridge / 渡月桥",
+        "address": "Togetsukyo Bridge, Kyoto",
+        "note": "岚山经典视角；午餐可安排在周边。"
+      },
+      {
+        "time": "14:30",
+        "name": "Daikaku-ji Temple / 大觉寺",
+        "address": "4 Sagaosawacho, Ukyo-ku, Kyoto",
+        "note": "非游客化京都；时间紧可改嵯峨野小路慢走。"
+      },
+      {
+        "time": "17:00",
+        "name": "Nishiki Market / 锦市场",
+        "address": "Nishiki Market, Nakagyo-ku, Kyoto",
+        "note": "若大觉寺停留久，可跳过锦市场。"
+      },
+      {
+        "time": "19:00",
+        "name": "Shijo Karasuma / 四条乌丸",
+        "address": "Shijo Karasuma, Kyoto",
+        "note": "回酒店休息。"
+      }
+    ],
+    "segments": [
+      "TRANSIT",
+      "WALKING",
+      "TRANSIT",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "TRANSIT",
+      "TRANSIT",
+      "WALKING"
+    ]
   },
   {
-    id:"d0510", date:"5/10 周日", title:"岚山 + 嵯峨野小火车 + 非游客化京都", stay:"京都｜四条乌丸",
-    summary:"早上按 09:30 小火车龟冈发车时间倒推，从四条乌丸前往小火车龟冈站；09:30–09:50 搭乘嵯峨野トロッコ列車到小火车岚山站，之后走岚山竹林、天龙寺外围、渡月桥；下午大觉寺/嵯峨野小路，傍晚可回锦市场收尾。",
-    highlights:["核心预约：嵯峨野トロッコ列車 2026-05-10 09:30 小火车龟冈 → 09:50 小火车岚山", "建议 07:45 从四条乌丸出发，09:10 前到小火车龟冈站，预留换乘、步行、找站台时间", "岚山当天不要先去竹林，否则会错过小火车固定发车时间"],
-    ticket:"已加入你提供的小火车票：亀岡駅 → 嵯峨駅／嵐山駅，09:30 出发，09:50 到达。请以票面终点为准：若实际终点是小火车岚山站，按本行程下车；若票面写小火车嵯峨站，则继续坐到嵯峨站再回走岚山区域。天龙寺/大觉寺现场购票即可。",
-    stops:[
-      {time:"07:45", name:"Shijo Karasuma / 四条乌丸", address:"Shijo Karasuma, Kyoto", note:"务必早出发；建议走地铁/巴士到京都站，再 JR 到马堀，步行到小火车龟冈站。"},
-      {time:"09:10", name:"Torokko Kameoka Station / 小火车龟冈站", address:"Torokko Kameoka Station, Kameoka, Kyoto", note:"建议 09:10 前到站，预留找入口、确认车票和上车位置的时间。"},
-      {time:"09:30", name:"Sagano Romantic Train：Kameoka Departure / 嵯峨野トロッコ列車・龟冈发车", address:"Torokko Kameoka Station, Kameoka, Kyoto", note:"小火车龟冈 09:30 发车；这段时间固定，其他安排都要围绕它倒推。"},
-      {time:"09:50", name:"Torokko Arashiyama Station / 小火车岚山站", address:"Torokko Arashiyama Station, Kyoto", note:"你提供的到达时间为 09:50 小火车岚山；下车后直接进入岚山区域。"},
-      {time:"10:00", name:"Arashiyama Bamboo Forest / 岚山竹林", address:"Arashiyama Bamboo Forest, Kyoto", note:"从小火车岚山站步行很近；此时人会比清晨多一些，但路线顺。"},
-      {time:"上午", name:"Tenryu-ji Temple / 天龙寺外围", address:"68 Susukinobaba-cho, Saga-Tenryuji, Ukyo-ku, Kyoto", note:"可只走外围或现场决定入内。"},
-      {time:"中午", name:"Togetsukyo Bridge / 渡月桥", address:"Togetsukyo Bridge, Kyoto", note:"岚山经典视角；午餐可安排在渡月桥、嵯峨岚山站周边。"},
-      {time:"下午", name:"Daikaku-ji Temple / 大觉寺", address:"4 Sagaosawacho, Ukyo-ku, Kyoto", note:"非游客化京都；时间紧可改为嵯峨野小路慢走。"},
-      {time:"傍晚", name:"Nishiki Market / 锦市场", address:"Nishiki Market, Nakagyo-ku, Kyoto", note:"收尾买伴手礼；很多店关得早，若大觉寺停留久可跳过。"},
-      {time:"夜", name:"Shijo Karasuma / 四条乌丸", address:"Shijo Karasuma, Kyoto", note:"回酒店休息。"}
+    "id": "d0510",
+    "date": "5/10 周日",
+    "title": "京都大学 + 左京区文艺线",
+    "stay": "京都｜四条乌丸",
+    "summary": "把京都大学放进最顺的左京区路线：出町柳/百万遍、京都大学、京都大学综合博物馆、吉田神社、哲学之道、银阁寺、南禅寺/蹴上。相比纯寺社日，这天更有大学、城市文化和散步感。",
+    "highlights": [
+      "京都大学与百万遍、吉田山、哲学之道在同一区域",
+      "京都大学综合博物馆周日开放，适合安排这天",
+      "哲学之道和银阁寺一路顺走",
+      "南禅寺/蹴上作为体力可选"
     ],
-    segments:["TRANSIT","WALKING","TRANSIT","WALKING","WALKING","WALKING","TRANSIT","TRANSIT","WALKING"]
+    "ticket": "京都大学综合博物馆通常周三至周日开放，需注意 16:00 最后入馆；银阁寺/南禅寺现场购票。",
+    "stops": [
+      {
+        "time": "09:00",
+        "name": "Shijo Karasuma / 四条乌丸",
+        "address": "Shijo Karasuma, Kyoto",
+        "note": "出发去出町柳/百万遍。"
+      },
+      {
+        "time": "09:45",
+        "name": "Demachiyanagi Station / 出町柳站",
+        "address": "Demachiyanagi Station, Kyoto",
+        "note": "左京区起点。"
+      },
+      {
+        "time": "10:00",
+        "name": "Kyoto University Yoshida Campus / 京都大学吉田校区",
+        "address": "Yoshida Honmachi, Sakyo-ku, Kyoto",
+        "note": "校园、百万遍周边。"
+      },
+      {
+        "time": "11:00",
+        "name": "The Kyoto University Museum / 京都大学综合博物馆",
+        "address": "Yoshida Honmachi, Sakyo-ku, Kyoto",
+        "note": "大学博物馆；注意开放日和最后入馆。"
+      },
+      {
+        "time": "12:30",
+        "name": "Hyakumanben / 百万遍",
+        "address": "Hyakumanben, Sakyo-ku, Kyoto",
+        "note": "午餐、咖啡、学生街氛围。"
+      },
+      {
+        "time": "13:30",
+        "name": "Yoshida Shrine / 吉田神社",
+        "address": "30 Yoshidakaguraokacho, Sakyo-ku, Kyoto",
+        "note": "吉田山散步，游客相对少。"
+      },
+      {
+        "time": "14:30",
+        "name": "Philosopher's Path / 哲学之道",
+        "address": "Philosopher's Path, Sakyo-ku, Kyoto",
+        "note": "慢走到银阁寺方向。"
+      },
+      {
+        "time": "15:30",
+        "name": "Ginkaku-ji Temple / 银阁寺",
+        "address": "2 Ginkakujicho, Sakyo-ku, Kyoto",
+        "note": "可入内，也可只走门前参道。"
+      },
+      {
+        "time": "17:00",
+        "name": "Nanzen-ji Temple / 南禅寺",
+        "address": "86 Nanzenji Fukuchicho, Sakyo-ku, Kyoto",
+        "note": "体力够再加；否则直接回河原町。"
+      },
+      {
+        "time": "19:00",
+        "name": "Kamo River / 鸭川",
+        "address": "Kamo River, Kyoto",
+        "note": "晚间散步/晚餐。"
+      },
+      {
+        "time": "20:30",
+        "name": "Shijo Karasuma / 四条乌丸",
+        "address": "Shijo Karasuma, Kyoto",
+        "note": "回酒店。"
+      }
+    ],
+    "segments": [
+      "TRANSIT",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "TRANSIT",
+      "TRANSIT",
+      "TRANSIT"
+    ]
   },
   {
-    id:"d0511", date:"5/11 周一", title:"宇治：《吹响！上低音号》巡礼 + 平等院", stay:"京都｜四条乌丸",
-    summary:"宇治桥、京阪宇治站、宇治川、县神社、平等院表参道、平等院、宇治神社/宇治上神社、朝雾桥、大吉山展望台。与 5/10 互换后，这天不再受小火车固定时间约束。",
-    highlights:["推荐京阪线：祇园四条/三条 → 中书岛 → 宇治", "平等院凤凰堂内部参观需当天尽早拿号", "巡礼点多在公共空间，请注意学校/住宅区礼仪"],
-    ticket:"平等院庭园现场购票；凤凰堂内部参观只接受当天现场预约，不接受电话/邮件预约。普通京阪/JR 无需订票。",
-    stops:[
-      {time:"08:00", name:"Shijo Karasuma / 四条乌丸", address:"Shijo Karasuma, Kyoto", note:"前往京阪或京都站出发。"},
-      {time:"09:00", name:"Keihan Uji Station / 京阪宇治站", address:"Keihan Uji Station, Uji, Kyoto", note:"《吹响！上低音号》巡礼常见起点之一。"},
-      {time:"上午", name:"Uji Bridge / 宇治桥", address:"Uji Bridge, Uji, Kyoto", note:"番剧巡礼、宇治川视角。"},
-      {time:"上午", name:"Uji River Promenade / 宇治川河岸", address:"Uji River, Uji, Kyoto", note:"河岸散步，找久美子长椅方向。"},
-      {time:"上午", name:"Agata Shrine / 县神社", address:"Agata Shrine, Uji, Kyoto", note:"宇治市区小神社。"},
-      {time:"中午", name:"Byodoin Omotesando / 平等院表参道", address:"Byodoin Omotesando, Uji, Kyoto", note:"午餐、抹茶、伴手礼。"},
-      {time:"下午", name:"Byodoin Temple / 平等院", address:"116 Uji Renge, Uji City, Kyoto", note:"凤凰堂内部参观需当天现场拿号。"},
-      {time:"下午", name:"Uji Shrine / 宇治神社", address:"1 Uji Yamada, Uji, Kyoto", note:"朝雾桥附近。"},
-      {time:"下午", name:"Ujigami Shrine / 宇治上神社", address:"59 Uji Yamada, Uji, Kyoto", note:"世界遗产，宇治神社后方。"},
-      {time:"傍晚", name:"Asagiri Bridge / 朝雾桥", address:"Asagiri Bridge, Uji, Kyoto", note:"宇治川经典视角。"},
-      {time:"傍晚", name:"Daikichiyama Observation Deck / 大吉山展望台", address:"Daikichiyama Observation Deck, Uji, Kyoto", note:"《上低音号》巡礼重点；注意下山时间。"},
-      {time:"晚", name:"Shijo Karasuma / 四条乌丸", address:"Shijo Karasuma, Kyoto", note:"建议 20:30 前从宇治回京都。"}
+    "id": "d0511",
+    "date": "5/11 周一",
+    "title": "京都南线：伏见稻荷・东福寺・三十三间堂・锦市场",
+    "stay": "京都｜四条乌丸",
+    "summary": "京都南侧顺路线：早上伏见稻荷大社，之后东福寺、三十三间堂，下午回京都站/锦市场/四条河原町。京都最后一晚不要排太远，给购物和晚餐留空间。",
+    "highlights": [
+      "伏见稻荷尽量早到，往山上走人会少",
+      "东福寺和三十三间堂都在南线，顺路",
+      "下午回市中心，适合补伴手礼",
+      "京都最后一晚以轻松收尾为主"
     ],
-    segments:["TRANSIT","WALKING","WALKING","WALKING","WALKING","WALKING","WALKING","WALKING","WALKING","WALKING","TRANSIT"]
+    "ticket": "伏见稻荷免费；东福寺、三十三间堂如入内现场购票。锦市场很多店关得早，建议 15:00–17:00 之间到。",
+    "stops": [
+      {
+        "time": "07:30",
+        "name": "Shijo Karasuma / 四条乌丸",
+        "address": "Shijo Karasuma, Kyoto",
+        "note": "早出门避开伏见稻荷人潮。"
+      },
+      {
+        "time": "08:00",
+        "name": "Fushimi Inari Taisha / 伏见稻荷大社",
+        "address": "68 Fukakusa Yabunouchicho, Fushimi-ku, Kyoto",
+        "note": "千本鸟居，建议往山上走 30–45 分钟。"
+      },
+      {
+        "time": "10:30",
+        "name": "Tofuku-ji Temple / 东福寺",
+        "address": "15-778 Honmachi, Higashiyama-ku, Kyoto",
+        "note": "京都南线名刹，通天桥/庭园可选。"
+      },
+      {
+        "time": "12:30",
+        "name": "Kyoto Station / 京都站",
+        "address": "Kyoto Station, Kyoto",
+        "note": "午餐/休息。"
+      },
+      {
+        "time": "14:00",
+        "name": "Sanjusangendo Temple / 三十三间堂",
+        "address": "657 Sanjusangendomawari, Higashiyama-ku, Kyoto",
+        "note": "千手观音像群，室内参观。"
+      },
+      {
+        "time": "15:30",
+        "name": "Nishiki Market / 锦市场",
+        "address": "Nishiki Market, Nakagyo-ku, Kyoto",
+        "note": "小吃和伴手礼，注意收摊时间。"
+      },
+      {
+        "time": "17:30",
+        "name": "Kawaramachi / 四条河原町",
+        "address": "Kawaramachi, Kyoto",
+        "note": "京都最后一晚晚餐/购物。"
+      },
+      {
+        "time": "20:30",
+        "name": "Shijo Karasuma / 四条乌丸",
+        "address": "Shijo Karasuma, Kyoto",
+        "note": "回酒店整理行李。"
+      }
+    ],
+    "segments": [
+      "TRANSIT",
+      "TRANSIT",
+      "TRANSIT",
+      "TRANSIT",
+      "TRANSIT",
+      "WALKING",
+      "TRANSIT"
+    ]
   },
   {
-    id:"d0512", date:"5/12 周二", title:"回大阪：黑门市场 + 新世界 + 天王寺", stay:"大阪｜Floral Hotel・East Shinsaibashi",
-    summary:"京都退房回大阪，先把行李放到 Floral Hotel，再走黑门市场、日本桥、新世界、四天王寺外圈、天王寺/阿倍野。",
-    highlights:["先寄存行李再逛", "黑门少量尝鲜，不在游客摊位猛买", "通天阁/Harukas 本行程默认外观，不强制上楼"],
-    ticket:"普通交通不需订票。若想上 HARUKAS 300 或通天阁体验项目，建议当天上午确认票量。",
-    stops:[
-      {time:"09:30", name:"Shijo Karasuma / 四条乌丸", address:"Shijo Karasuma, Kyoto", note:"京都退房。"},
-      {time:"11:00", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"寄存/入住大阪酒店。"},
-      {time:"午前后", name:"Kuromon Market / 黑门市场", address:"2-4-1 Nippombashi, Chuo-ku, Osaka", note:"少量尝鲜。"},
-      {time:"下午", name:"Nipponbashi Den Den Town / 日本桥电电城", address:"Nipponbashi, Naniwa-ku, Osaka", note:"顺路散步。"},
-      {time:"下午", name:"Tsutenkaku & Shinsekai / 通天阁・新世界", address:"1-18-6 Ebisuhigashi, Naniwa-ku, Osaka", note:"炸串、复古街区；默认外观。"},
-      {time:"下午", name:"Shitenno-ji Temple / 四天王寺外圈", address:"1-11-18 Shitennoji, Tennoji-ku, Osaka", note:"外圈散步，时间够再入内。"},
-      {time:"傍晚", name:"Abeno Harukas / 阿倍野 Harukas", address:"1-1-43 Abenosuji, Abeno-ku, Osaka", note:"本行程以外观/天王寺散步为主。"},
-      {time:"夜", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"回酒店。"}
+    "id": "d0512",
+    "date": "5/12 周二",
+    "title": "宇治转场日：抹茶・平等院・上低音号巡礼 → 大阪",
+    "stay": "大阪｜Floral Hotel・East Shinsaibashi",
+    "summary": "不安排大阪游玩。京都退房后轻装去宇治，一天走中村藤吉/辻利兵卫、平等院、宇治川、宇治神社/宇治上神社、大吉山观景台、宇治桥；傍晚回京都取行李，再去大阪入住。",
+    "highlights": [
+      "5/12 从大阪行程改为宇治转场日",
+      "行李建议寄京都酒店或京都站，不拖箱进宇治",
+      "宇治兼顾抹茶、世界遗产、宇治川和《吹响！上低音号》巡礼",
+      "晚上只负责回大阪入住，不再加大阪景点"
     ],
-    segments:["TRANSIT","WALKING","WALKING","WALKING","WALKING","WALKING","TRANSIT"]
+    "ticket": "平等院庭园现场购票；凤凰堂内部参观需当天现场拿号。普通 JR/京阪无需订票。",
+    "stops": [
+      {
+        "time": "08:30",
+        "name": "Shijo Karasuma / 四条乌丸",
+        "address": "Shijo Karasuma, Kyoto",
+        "note": "京都退房，行李寄酒店或京都站。"
+      },
+      {
+        "time": "09:30",
+        "name": "JR Uji Station / JR 宇治站",
+        "address": "JR Uji Station, Uji, Kyoto",
+        "note": "宇治一日开始；也可从京阪宇治站开始。"
+      },
+      {
+        "time": "09:45",
+        "name": "Nakamura Tokichi Honten / 中村藤吉本店",
+        "address": "10 Uji Ichiban, Uji, Kyoto",
+        "note": "抹茶甜品；排队长则改辻利兵卫。"
+      },
+      {
+        "time": "10:45",
+        "name": "Byodoin Temple / 平等院",
+        "address": "116 Uji Renge, Uji City, Kyoto",
+        "note": "凤凰堂、凤翔馆；内部参观需现场拿号。"
+      },
+      {
+        "time": "12:00",
+        "name": "Uji River Promenade / 宇治川河岸",
+        "address": "Uji River, Uji, Kyoto",
+        "note": "沿河散步，氛围很好。"
+      },
+      {
+        "time": "13:00",
+        "name": "Uji Shrine / 宇治神社",
+        "address": "1 Uji Yamada, Uji, Kyoto",
+        "note": "从宇治川过桥后顺路。"
+      },
+      {
+        "time": "13:30",
+        "name": "Ujigami Shrine / 宇治上神社",
+        "address": "59 Uji Yamada, Uji, Kyoto",
+        "note": "世界遗产，宇治神社后方。"
+      },
+      {
+        "time": "14:15",
+        "name": "Daikichiyama Observation Deck / 大吉山展望台",
+        "address": "Daikichiyama Observation Deck, Uji, Kyoto",
+        "note": "《吹响！上低音号》巡礼重点；上山约 15 分钟。"
+      },
+      {
+        "time": "15:30",
+        "name": "Uji Bridge / 宇治桥",
+        "address": "Uji Bridge, Uji, Kyoto",
+        "note": "宇治川经典视角，回站方向。"
+      },
+      {
+        "time": "16:00",
+        "name": "Itohkyuemon Uji Main Store / 伊藤久右卫门宇治本店",
+        "address": "19-3 Uji Togawa, Uji, Kyoto",
+        "note": "伴手礼可选；时间紧可跳过。"
+      },
+      {
+        "time": "17:30",
+        "name": "Kyoto Station / 京都站",
+        "address": "Kyoto Station, Kyoto",
+        "note": "取行李/转大阪。"
+      },
+      {
+        "time": "19:00",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "大阪入住，晚上只安排休息或心斋桥简单晚餐。"
+      }
+    ],
+    "segments": [
+      "TRANSIT",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "TRANSIT",
+      "TRANSIT"
+    ]
   },
   {
-    id:"d0513", date:"5/13 周三", title:"大阪自由收尾，22:00 离开", stay:"大阪｜Floral Hotel・East Shinsaibashi（白天可休息/放行李）",
-    summary:"优先选轻松路线：大阪市立科学馆 + 中之岛建筑散步；备选鹤桥韩国街 + 心斋桥补买。18:00–18:30 取行李去机场较稳。",
-    highlights:["酒店第二晚可作为白天休息/打包据点", "若选大阪市立科学馆天文馆，建议提前订票", "22:00 航班请 18:00–18:30 离开酒店"],
-    ticket:"若去科学馆天文馆建议提前订；去关西机场推荐提前锁定南海 Rapi:t 指定席。",
-    stops:[
-      {time:"上午", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"酒店放行李。"},
-      {time:"上午", name:"Osaka Science Museum / 大阪市立科学馆", address:"4-2-1 Nakanoshima, Kita-ku, Osaka", note:"研究生友好型；天文馆建议提前买票。"},
-      {time:"下午", name:"Nakanoshima / 中之岛建筑散步", address:"Nakanoshima, Kita-ku, Osaka", note:"中央公会堂、河岸建筑。"},
-      {time:"备选", name:"Tsuruhashi Koreatown / 鹤桥韩国街", address:"Tsuruhashi, Osaka", note:"若不去科学馆，可改鹤桥+心斋桥。"},
-      {time:"傍晚", name:"Shinsaibashi-suji Shopping Street / 心斋桥筋商店街", address:"Shinsaibashi-suji, Chuo-ku, Osaka", note:"补买伴手礼。"},
-      {time:"18:00", name:"Floral Hotel・East Shinsaibashi", address:"2-6-4 Shimanouchi, Chuo-ku, Osaka", note:"取行李。"},
-      {time:"19:00", name:"Nankai Namba Station / 南海难波站", address:"Nankai Namba Station, Osaka", note:"前往关西机场。"},
-      {time:"20:00", name:"Kansai International Airport / 关西国际机场", address:"Kansai International Airport, Osaka", note:"若 22:00 起飞，预留值机/安检/购物时间。"}
+    "id": "d0513",
+    "date": "5/13 周三",
+    "title": "大阪收尾：黑门市场・日本桥・难波八阪・返程",
+    "stay": "大阪｜Floral Hotel・East Shinsaibashi（白天放行李）",
+    "summary": "返程日只走大阪市中心：黑门市场、日本桥电电城、难波八阪神社、心斋桥补货。按航班时间提前从酒店取行李去关西机场。",
+    "highlights": [
+      "返程日不跑远，全部控制在难波/心斋桥周边",
+      "黑门市场少量尝鲜即可，不要买太重",
+      "心斋桥负责最终补货",
+      "若 22:00 航班，建议 18:00–18:30 离开酒店"
     ],
-    segments:["TRANSIT","WALKING","TRANSIT","TRANSIT","WALKING","TRANSIT","TRANSIT"]
+    "ticket": "前往关西机场建议提前确认南海 Rapi:t 或机场急行班次；购物退税注意预留时间。",
+    "stops": [
+      {
+        "time": "09:30",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "酒店放行李。"
+      },
+      {
+        "time": "10:00",
+        "name": "Kuromon Market / 黑门市场",
+        "address": "2-4-1 Nippombashi, Chuo-ku, Osaka",
+        "note": "少量尝鲜。"
+      },
+      {
+        "time": "11:30",
+        "name": "Nipponbashi Den Den Town / 日本桥电电城",
+        "address": "Nipponbashi, Naniwa-ku, Osaka",
+        "note": "动漫、电器、模型店顺路散步。"
+      },
+      {
+        "time": "13:00",
+        "name": "Namba Yasaka Shrine / 难波八阪神社",
+        "address": "2-9-19 Motomachi, Naniwa-ku, Osaka",
+        "note": "狮子头神社，拍照点。"
+      },
+      {
+        "time": "14:30",
+        "name": "Shinsaibashi-suji Shopping Street / 心斋桥筋商店街",
+        "address": "Shinsaibashi-suji, Chuo-ku, Osaka",
+        "note": "最终补货、退税、药妆。"
+      },
+      {
+        "time": "18:00",
+        "name": "Floral Hotel・East Shinsaibashi",
+        "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
+        "note": "取行李，准备去机场。"
+      },
+      {
+        "time": "19:00",
+        "name": "Nankai Namba Station / 南海难波站",
+        "address": "Nankai Namba Station, Osaka",
+        "note": "乘南海前往关西机场。"
+      },
+      {
+        "time": "20:00",
+        "name": "Kansai International Airport / 关西国际机场",
+        "address": "Kansai International Airport, Osaka",
+        "note": "若 22:00 起飞，预留值机/安检/购物时间。"
+      }
+    ],
+    "segments": [
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "TRANSIT",
+      "WALKING",
+      "TRANSIT",
+      "TRANSIT"
+    ]
   }
 ];
 
@@ -258,6 +940,13 @@ const placeMeta = {
     "en": "Floral Hotel East Shinsaibashi",
     "addressJa": "大阪府大阪市中央区島之内2丁目6-4",
     "query": "大阪府大阪市中央区島之内2丁目6-4 Floral Hotel East Shinsaibashi"
+  },
+  "Shinsaibashi-suji Shopping Street / 心斋桥筋商店街": {
+    "zh": "心斋桥筋商店街",
+    "ja": "心斎橋筋商店街",
+    "en": "Shinsaibashi-suji Shopping Street",
+    "addressJa": "大阪府大阪市中央区心斎橋筋",
+    "query": "心斎橋筋商店街 大阪市中央区"
   },
   "Dotonbori / 道顿堀": {
     "zh": "道顿堀",
@@ -273,33 +962,47 @@ const placeMeta = {
     "addressJa": "大阪府大阪市中央区難波1丁目2",
     "query": "法善寺横丁 大阪府大阪市中央区難波1丁目2"
   },
-  "Sennichimae / 千日前": {
-    "zh": "千日前",
-    "ja": "千日前",
-    "en": "Sennichimae",
-    "addressJa": "大阪府大阪市中央区千日前",
-    "query": "千日前 大阪府大阪市中央区"
+  "Osaka Castle Park / 大阪城公园": {
+    "zh": "大阪城公园",
+    "ja": "大阪城公園",
+    "en": "Osaka Castle Park",
+    "addressJa": "大阪府大阪市中央区大阪城",
+    "query": "大阪城公園 大阪市中央区"
   },
-  "Osaka Museum of Housing and Living / 大阪生活今昔馆": {
-    "zh": "大阪生活今昔馆",
-    "ja": "大阪くらしの今昔館",
-    "en": "Osaka Museum of Housing and Living",
-    "addressJa": "大阪府大阪市北区天神橋6丁目4-20 住まい情報センター8階",
-    "query": "大阪くらしの今昔館 大阪市北区天神橋6丁目4-20"
+  "Osaka Castle Museum / 大阪城天守阁": {
+    "zh": "大阪城天守阁",
+    "ja": "大阪城天守閣",
+    "en": "Osaka Castle Museum",
+    "addressJa": "大阪府大阪市中央区大阪城1-1",
+    "query": "大阪城天守閣 大阪府大阪市中央区大阪城1-1"
   },
-  "Nakazakicho / 中崎町": {
-    "zh": "中崎町",
-    "ja": "中崎町",
-    "en": "Nakazakicho",
-    "addressJa": "大阪府大阪市北区中崎町",
-    "query": "中崎町 大阪市北区"
+  "Kitahama / 北浜": {
+    "zh": "北浜",
+    "ja": "北浜",
+    "en": "Kitahama",
+    "addressJa": "大阪府大阪市中央区北浜",
+    "query": "北浜 大阪市中央区"
   },
-  "Tenjinbashisuji Shopping Street / 天神桥筋商店街": {
-    "zh": "天神桥筋商店街",
-    "ja": "天神橋筋商店街",
-    "en": "Tenjinbashisuji Shopping Street",
-    "addressJa": "大阪府大阪市北区天神橋",
-    "query": "天神橋筋商店街 大阪市北区"
+  "Nakanoshima / 中之岛建筑散步": {
+    "zh": "中之岛建筑散步",
+    "ja": "中之島",
+    "en": "Nakanoshima",
+    "addressJa": "大阪府大阪市北区中之島",
+    "query": "中之島 大阪市北区"
+  },
+  "Grand Front Osaka / 大阪 Grand Front": {
+    "zh": "大阪 Grand Front",
+    "ja": "グランフロント大阪",
+    "en": "Grand Front Osaka",
+    "addressJa": "大阪府大阪市北区大深町4-1",
+    "query": "グランフロント大阪 大阪府大阪市北区大深町4-1"
+  },
+  "HEP FIVE / HEP FIVE 摩天轮": {
+    "zh": "HEP FIVE 摩天轮",
+    "ja": "HEP FIVE 観覧車",
+    "en": "HEP FIVE Ferris Wheel",
+    "addressJa": "大阪府大阪市北区角田町5-15",
+    "query": "HEP FIVE 観覧車 大阪府大阪市北区角田町5-15"
   },
   "Umeda Sky Building / 梅田蓝天大厦": {
     "zh": "梅田蓝天大厦",
@@ -307,6 +1010,83 @@ const placeMeta = {
     "en": "Umeda Sky Building",
     "addressJa": "大阪府大阪市北区大淀中1丁目1-88",
     "query": "梅田スカイビル 大阪府大阪市北区大淀中1丁目1-88"
+  },
+  "Tsutenkaku & Shinsekai / 通天阁・新世界": {
+    "zh": "通天阁・新世界",
+    "ja": "通天閣・新世界",
+    "en": "Tsutenkaku & Shinsekai",
+    "addressJa": "大阪府大阪市浪速区恵美須東1丁目18-6",
+    "query": "通天閣 新世界 大阪市浪速区恵美須東1丁目18-6"
+  },
+  "Osaka Station / 大阪站": {
+    "zh": "大阪站",
+    "ja": "大阪駅",
+    "en": "Osaka Station",
+    "addressJa": "大阪府大阪市北区梅田3丁目1-1",
+    "query": "大阪駅"
+  },
+  "Himeji Station / 姬路站": {
+    "zh": "姬路站",
+    "ja": "姫路駅",
+    "en": "Himeji Station",
+    "addressJa": "兵庫県姫路市駅前町",
+    "query": "姫路駅"
+  },
+  "Himeji Castle / 姬路城": {
+    "zh": "姬路城",
+    "ja": "姫路城",
+    "en": "Himeji Castle",
+    "addressJa": "兵庫県姫路市本町68",
+    "query": "姫路城 兵庫県姫路市本町68"
+  },
+  "Koko-en Garden / 好古园": {
+    "zh": "好古园",
+    "ja": "好古園",
+    "en": "Koko-en Garden",
+    "addressJa": "兵庫県姫路市本町68",
+    "query": "好古園 兵庫県姫路市本町68"
+  },
+  "Ikuta Shrine / 生田神社": {
+    "zh": "生田神社",
+    "ja": "生田神社",
+    "en": "Ikuta Shrine",
+    "addressJa": "兵庫県神戸市中央区下山手通1丁目2-1",
+    "query": "生田神社 兵庫県神戸市中央区下山手通1丁目2-1"
+  },
+  "Sannomiya Center Gai / 三宫中心街": {
+    "zh": "三宫中心街",
+    "ja": "三宮センター街",
+    "en": "Sannomiya Center Gai",
+    "addressJa": "兵庫県神戸市中央区三宮町",
+    "query": "三宮センター街 神戸市中央区"
+  },
+  "Nankinmachi / 南京町": {
+    "zh": "南京町",
+    "ja": "南京町",
+    "en": "Nankinmachi",
+    "addressJa": "兵庫県神戸市中央区栄町通1丁目3-18",
+    "query": "南京町 神戸市中央区"
+  },
+  "Meriken Park / 美利坚公园": {
+    "zh": "美利坚公园",
+    "ja": "メリケンパーク",
+    "en": "Meriken Park",
+    "addressJa": "兵庫県神戸市中央区波止場町2",
+    "query": "メリケンパーク 神戸市中央区"
+  },
+  "Kobe Port Tower / 神户塔": {
+    "zh": "神户塔",
+    "ja": "神戸ポートタワー",
+    "en": "Kobe Port Tower",
+    "addressJa": "兵庫県神戸市中央区波止場町5-5",
+    "query": "神戸ポートタワー 兵庫県神戸市中央区波止場町5-5"
+  },
+  "Kobe-Sannomiya Station / 神户三宫站": {
+    "zh": "神户三宫站",
+    "ja": "神戸三宮駅",
+    "en": "Kobe-Sannomiya Station",
+    "addressJa": "兵庫県神戸市中央区小野柄通8丁目1-8",
+    "query": "神戸三宮駅"
   },
   "Osaka-Namba Station / 大阪难波站": {
     "zh": "大阪难波站",
@@ -322,19 +1102,19 @@ const placeMeta = {
     "addressJa": "奈良県奈良市東向中町29",
     "query": "近鉄奈良駅"
   },
+  "Nakatanidou / 中谷堂": {
+    "zh": "中谷堂",
+    "ja": "中谷堂",
+    "en": "Nakatanidou",
+    "addressJa": "奈良県奈良市橋本町29",
+    "query": "中谷堂 奈良県奈良市橋本町29"
+  },
   "Kofuku-ji Temple / 兴福寺": {
     "zh": "兴福寺",
     "ja": "興福寺",
     "en": "Kofuku-ji Temple",
     "addressJa": "奈良県奈良市登大路町48",
     "query": "興福寺 奈良県奈良市登大路町48"
-  },
-  "Nara Park / 奈良公园": {
-    "zh": "奈良公园",
-    "ja": "奈良公園",
-    "en": "Nara Park",
-    "addressJa": "奈良県奈良市雑司町469",
-    "query": "奈良公園 奈良県奈良市"
   },
   "Todai-ji Temple / 东大寺": {
     "zh": "东大寺",
@@ -343,54 +1123,33 @@ const placeMeta = {
     "addressJa": "奈良県奈良市雑司町406-1",
     "query": "東大寺 奈良県奈良市雑司町406-1"
   },
-  "Kasuga Taisha / 春日大社外苑": {
-    "zh": "春日大社外苑",
+  "Nara Park / 奈良公园": {
+    "zh": "奈良公园",
+    "ja": "奈良公園",
+    "en": "Nara Park",
+    "addressJa": "奈良県奈良市雑司町469",
+    "query": "奈良公園 奈良県奈良市"
+  },
+  "Mizutani Chaya / 水谷茶屋": {
+    "zh": "水谷茶屋",
+    "ja": "水谷茶屋",
+    "en": "Mizutani Chaya",
+    "addressJa": "奈良県奈良市春日野町30",
+    "query": "水谷茶屋 奈良県奈良市春日野町30"
+  },
+  "Kasuga Taisha / 春日大社": {
+    "zh": "春日大社",
     "ja": "春日大社",
     "en": "Kasuga Taisha",
     "addressJa": "奈良県奈良市春日野町160",
     "query": "春日大社 奈良県奈良市春日野町160"
   },
-  "Naramachi / 奈良町": {
-    "zh": "奈良町",
-    "ja": "ならまち",
-    "en": "Naramachi",
-    "addressJa": "奈良県奈良市ならまち",
-    "query": "ならまち 奈良市"
-  },
-  "Kobe-Sannomiya Station / 神户三宫站": {
-    "zh": "神户三宫站",
-    "ja": "神戸三宮駅",
-    "en": "Kobe-Sannomiya Station",
-    "addressJa": "兵庫県神戸市中央区小野柄通8丁目1-8",
-    "query": "神戸三宮駅"
-  },
-  "Kitano Ijinkan-gai / 北野异人馆街": {
-    "zh": "北野异人馆街",
-    "ja": "北野異人館街",
-    "en": "Kitano Ijinkan-gai",
-    "addressJa": "兵庫県神戸市中央区北野町",
-    "query": "北野異人館街 兵庫県神戸市中央区北野町"
-  },
-  "Nankinmachi / 南京町": {
-    "zh": "南京町",
-    "ja": "南京町",
-    "en": "Nankinmachi",
-    "addressJa": "兵庫県神戸市中央区栄町通1丁目3-18",
-    "query": "南京町 神戸市中央区"
-  },
-  "Hakutsuru Sake Brewery Museum / 白鹤酒造资料馆": {
-    "zh": "白鹤酒造资料馆",
-    "ja": "白鶴酒造資料館",
-    "en": "Hakutsuru Sake Brewery Museum",
-    "addressJa": "兵庫県神戸市東灘区住吉南町4丁目5-5",
-    "query": "白鶴酒造資料館 兵庫県神戸市東灘区住吉南町4丁目5-5"
-  },
-  "Kobe Harborland / 神户港・Harborland": {
-    "zh": "神户港・Harborland",
-    "ja": "神戸ハーバーランド",
-    "en": "Kobe Harborland",
-    "addressJa": "兵庫県神戸市中央区東川崎町1丁目",
-    "query": "神戸ハーバーランド"
+  "Mount Wakakusa / 若草山": {
+    "zh": "若草山",
+    "ja": "若草山",
+    "en": "Mount Wakakusa",
+    "addressJa": "奈良県奈良市雑司町",
+    "query": "若草山 奈良市"
   },
   "Shijo Karasuma / 四条乌丸": {
     "zh": "四条乌丸",
@@ -398,34 +1157,6 @@ const placeMeta = {
     "en": "Shijo Karasuma",
     "addressJa": "京都府京都市下京区四条通烏丸",
     "query": "四条烏丸 京都市"
-  },
-  "Fushimi Inari Taisha / 伏见稻荷大社": {
-    "zh": "伏见稻荷大社",
-    "ja": "伏見稲荷大社",
-    "en": "Fushimi Inari Taisha",
-    "addressJa": "京都府京都市伏見区深草藪之内町68",
-    "query": "伏見稲荷大社 京都府京都市伏見区深草藪之内町68"
-  },
-  "Kamo River / 鸭川": {
-    "zh": "鸭川",
-    "ja": "鴨川",
-    "en": "Kamo River",
-    "addressJa": "京都府京都市 四条大橋付近",
-    "query": "鴨川 四条大橋 京都市"
-  },
-  "Pontocho Alley / 先斗町": {
-    "zh": "先斗町",
-    "ja": "先斗町",
-    "en": "Pontocho Alley",
-    "addressJa": "京都府京都市中京区先斗町",
-    "query": "先斗町 京都市中京区"
-  },
-  "Gion & Hanamikoji / 祇园・花见小路外围": {
-    "zh": "祇园・花见小路外围",
-    "ja": "祇園 花見小路",
-    "en": "Gion & Hanamikoji",
-    "addressJa": "京都府京都市東山区祇園町南側 花見小路通",
-    "query": "祇園 花見小路 京都市東山区"
   },
   "Kiyomizu-dera Temple / 清水寺": {
     "zh": "清水寺",
@@ -448,19 +1179,26 @@ const placeMeta = {
     "addressJa": "京都府京都市東山区祇園町北側625",
     "query": "八坂神社 京都府京都市東山区祇園町北側625"
   },
-  "Nanzen-ji Temple / 南禅寺": {
-    "zh": "南禅寺",
-    "ja": "南禅寺",
-    "en": "Nanzen-ji Temple",
-    "addressJa": "京都府京都市左京区南禅寺福地町86",
-    "query": "南禅寺 京都府京都市左京区南禅寺福地町86"
+  "Gion & Hanamikoji / 祇园・花见小路外围": {
+    "zh": "祇园・花见小路外围",
+    "ja": "祇園 花見小路",
+    "en": "Gion & Hanamikoji",
+    "addressJa": "京都府京都市東山区祇園町南側 花見小路通",
+    "query": "祇園 花見小路 京都市東山区"
   },
-  "Philosopher's Path / 哲学之道": {
-    "zh": "哲学之道",
-    "ja": "哲学の道",
-    "en": "Philosopher's Path",
-    "addressJa": "京都府京都市左京区鹿ケ谷周辺",
-    "query": "哲学の道 京都市左京区"
+  "Kamo River / 鸭川": {
+    "zh": "鸭川",
+    "ja": "鴨川",
+    "en": "Kamo River",
+    "addressJa": "京都府京都市 四条大橋付近",
+    "query": "鴨川 四条大橋 京都市"
+  },
+  "Pontocho Alley / 先斗町": {
+    "zh": "先斗町",
+    "ja": "先斗町",
+    "en": "Pontocho Alley",
+    "addressJa": "京都府京都市中京区先斗町",
+    "query": "先斗町 京都市中京区"
   },
   "Torokko Kameoka Station / 小火车龟冈站": {
     "zh": "小火车龟冈站",
@@ -490,8 +1228,8 @@ const placeMeta = {
     "addressJa": "京都府京都市右京区嵯峨天龍寺芒ノ馬場町",
     "query": "竹林の小径 京都市右京区嵯峨天龍寺"
   },
-  "Tenryu-ji Temple / 天龙寺外围": {
-    "zh": "天龙寺外围",
+  "Tenryu-ji Temple / 天龙寺": {
+    "zh": "天龙寺",
     "ja": "天龍寺",
     "en": "Tenryu-ji Temple",
     "addressJa": "京都府京都市右京区嵯峨天龍寺芒ノ馬場町68",
@@ -518,40 +1256,110 @@ const placeMeta = {
     "addressJa": "京都府京都市中京区錦小路通",
     "query": "錦市場 京都市中京区"
   },
-  "Keihan Uji Station / 京阪宇治站": {
-    "zh": "京阪宇治站",
-    "ja": "京阪宇治駅",
-    "en": "Keihan Uji Station",
-    "addressJa": "京都府宇治市宇治乙方18-5",
-    "query": "京阪宇治駅"
+  "Demachiyanagi Station / 出町柳站": {
+    "zh": "出町柳站",
+    "ja": "出町柳駅",
+    "en": "Demachiyanagi Station",
+    "addressJa": "京都府京都市左京区田中上柳町",
+    "query": "出町柳駅 京都市左京区"
   },
-  "Uji Bridge / 宇治桥": {
-    "zh": "宇治桥",
-    "ja": "宇治橋",
-    "en": "Uji Bridge",
-    "addressJa": "京都府宇治市宇治",
-    "query": "宇治橋 京都府宇治市"
+  "Kyoto University Yoshida Campus / 京都大学吉田校区": {
+    "zh": "京都大学吉田校区",
+    "ja": "京都大学 吉田キャンパス",
+    "en": "Kyoto University Yoshida Campus",
+    "addressJa": "京都府京都市左京区吉田本町",
+    "query": "京都大学 吉田キャンパス 京都府京都市左京区吉田本町"
   },
-  "Uji River Promenade / 宇治川河岸": {
-    "zh": "宇治川河岸",
-    "ja": "宇治川沿い",
-    "en": "Uji River Promenade",
-    "addressJa": "京都府宇治市宇治 宇治川沿い",
-    "query": "宇治川 宇治市"
+  "The Kyoto University Museum / 京都大学综合博物馆": {
+    "zh": "京都大学综合博物馆",
+    "ja": "京都大学総合博物館",
+    "en": "The Kyoto University Museum",
+    "addressJa": "京都府京都市左京区吉田本町",
+    "query": "京都大学総合博物館 京都市左京区吉田本町"
   },
-  "Agata Shrine / 县神社": {
-    "zh": "县神社",
-    "ja": "縣神社",
-    "en": "Agata Shrine",
-    "addressJa": "京都府宇治市宇治蓮華72",
-    "query": "縣神社 京都府宇治市宇治蓮華72"
+  "Hyakumanben / 百万遍": {
+    "zh": "百万遍",
+    "ja": "百万遍",
+    "en": "Hyakumanben",
+    "addressJa": "京都府京都市左京区田中門前町周辺",
+    "query": "百万遍 京都市左京区"
   },
-  "Byodoin Omotesando / 平等院表参道": {
-    "zh": "平等院表参道",
-    "ja": "平等院表参道",
-    "en": "Byodoin Omotesando",
-    "addressJa": "京都府宇治市宇治蓮華周辺",
-    "query": "平等院表参道 宇治市"
+  "Yoshida Shrine / 吉田神社": {
+    "zh": "吉田神社",
+    "ja": "吉田神社",
+    "en": "Yoshida Shrine",
+    "addressJa": "京都府京都市左京区吉田神楽岡町30",
+    "query": "吉田神社 京都府京都市左京区吉田神楽岡町30"
+  },
+  "Philosopher's Path / 哲学之道": {
+    "zh": "哲学之道",
+    "ja": "哲学の道",
+    "en": "Philosopher's Path",
+    "addressJa": "京都府京都市左京区鹿ケ谷周辺",
+    "query": "哲学の道 京都市左京区"
+  },
+  "Ginkaku-ji Temple / 银阁寺": {
+    "zh": "银阁寺",
+    "ja": "銀閣寺",
+    "en": "Ginkaku-ji Temple",
+    "addressJa": "京都府京都市左京区銀閣寺町2",
+    "query": "銀閣寺 京都府京都市左京区銀閣寺町2"
+  },
+  "Nanzen-ji Temple / 南禅寺": {
+    "zh": "南禅寺",
+    "ja": "南禅寺",
+    "en": "Nanzen-ji Temple",
+    "addressJa": "京都府京都市左京区南禅寺福地町86",
+    "query": "南禅寺 京都府京都市左京区南禅寺福地町86"
+  },
+  "Fushimi Inari Taisha / 伏见稻荷大社": {
+    "zh": "伏见稻荷大社",
+    "ja": "伏見稲荷大社",
+    "en": "Fushimi Inari Taisha",
+    "addressJa": "京都府京都市伏見区深草藪之内町68",
+    "query": "伏見稲荷大社 京都府京都市伏見区深草藪之内町68"
+  },
+  "Tofuku-ji Temple / 东福寺": {
+    "zh": "东福寺",
+    "ja": "東福寺",
+    "en": "Tofuku-ji Temple",
+    "addressJa": "京都府京都市東山区本町15丁目778",
+    "query": "東福寺 京都府京都市東山区本町15丁目778"
+  },
+  "Kyoto Station / 京都站": {
+    "zh": "京都站",
+    "ja": "京都駅",
+    "en": "Kyoto Station",
+    "addressJa": "京都府京都市下京区東塩小路町",
+    "query": "京都駅"
+  },
+  "Sanjusangendo Temple / 三十三间堂": {
+    "zh": "三十三间堂",
+    "ja": "三十三間堂",
+    "en": "Sanjusangendo Temple",
+    "addressJa": "京都府京都市東山区三十三間堂廻り町657",
+    "query": "三十三間堂 京都府京都市東山区三十三間堂廻り町657"
+  },
+  "Kawaramachi / 四条河原町": {
+    "zh": "四条河原町",
+    "ja": "四条河原町",
+    "en": "Kawaramachi",
+    "addressJa": "京都府京都市下京区四条河原町",
+    "query": "四条河原町 京都市"
+  },
+  "JR Uji Station / JR 宇治站": {
+    "zh": "JR 宇治站",
+    "ja": "JR宇治駅",
+    "en": "JR Uji Station",
+    "addressJa": "京都府宇治市宇治宇文字16",
+    "query": "JR宇治駅"
+  },
+  "Nakamura Tokichi Honten / 中村藤吉本店": {
+    "zh": "中村藤吉本店",
+    "ja": "中村藤吉本店",
+    "en": "Nakamura Tokichi Honten",
+    "addressJa": "京都府宇治市宇治壱番10",
+    "query": "中村藤吉本店 京都府宇治市宇治壱番10"
   },
   "Byodoin Temple / 平等院": {
     "zh": "平等院",
@@ -559,6 +1367,13 @@ const placeMeta = {
     "en": "Byodoin Temple",
     "addressJa": "京都府宇治市宇治蓮華116",
     "query": "平等院 京都府宇治市宇治蓮華116"
+  },
+  "Uji River Promenade / 宇治川河岸": {
+    "zh": "宇治川河岸",
+    "ja": "宇治川沿い",
+    "en": "Uji River Promenade",
+    "addressJa": "京都府宇治市宇治 宇治川沿い",
+    "query": "宇治川 宇治市"
   },
   "Uji Shrine / 宇治神社": {
     "zh": "宇治神社",
@@ -574,19 +1389,26 @@ const placeMeta = {
     "addressJa": "京都府宇治市宇治山田59",
     "query": "宇治上神社 京都府宇治市宇治山田59"
   },
-  "Asagiri Bridge / 朝雾桥": {
-    "zh": "朝雾桥",
-    "ja": "朝霧橋",
-    "en": "Asagiri Bridge",
-    "addressJa": "京都府宇治市宇治 朝霧橋",
-    "query": "朝霧橋 宇治市"
-  },
   "Daikichiyama Observation Deck / 大吉山展望台": {
     "zh": "大吉山展望台",
     "ja": "大吉山展望台",
     "en": "Daikichiyama Observation Deck",
     "addressJa": "京都府宇治市宇治紅斉",
     "query": "大吉山展望台 宇治市"
+  },
+  "Uji Bridge / 宇治桥": {
+    "zh": "宇治桥",
+    "ja": "宇治橋",
+    "en": "Uji Bridge",
+    "addressJa": "京都府宇治市宇治",
+    "query": "宇治橋 京都府宇治市"
+  },
+  "Itohkyuemon Uji Main Store / 伊藤久右卫门宇治本店": {
+    "zh": "伊藤久右卫门宇治本店",
+    "ja": "伊藤久右衛門 宇治本店",
+    "en": "Itohkyuemon Uji Main Store",
+    "addressJa": "京都府宇治市莵道荒槇19-3",
+    "query": "伊藤久右衛門 宇治本店 京都府宇治市莵道荒槇19-3"
   },
   "Kuromon Market / 黑门市场": {
     "zh": "黑门市场",
@@ -602,54 +1424,12 @@ const placeMeta = {
     "addressJa": "大阪府大阪市浪速区日本橋周辺",
     "query": "でんでんタウン 大阪市浪速区日本橋"
   },
-  "Tsutenkaku & Shinsekai / 通天阁・新世界": {
-    "zh": "通天阁・新世界",
-    "ja": "通天閣・新世界",
-    "en": "Tsutenkaku & Shinsekai",
-    "addressJa": "大阪府大阪市浪速区恵美須東1丁目18-6",
-    "query": "通天閣 新世界 大阪市浪速区恵美須東1丁目18-6"
-  },
-  "Shitenno-ji Temple / 四天王寺外圈": {
-    "zh": "四天王寺外圈",
-    "ja": "四天王寺",
-    "en": "Shitenno-ji Temple",
-    "addressJa": "大阪府大阪市天王寺区四天王寺1丁目11-18",
-    "query": "四天王寺 大阪府大阪市天王寺区四天王寺1丁目11-18"
-  },
-  "Abeno Harukas / 阿倍野 Harukas": {
-    "zh": "阿倍野 Harukas",
-    "ja": "あべのハルカス",
-    "en": "Abeno Harukas",
-    "addressJa": "大阪府大阪市阿倍野区阿倍野筋1丁目1-43",
-    "query": "あべのハルカス 大阪府大阪市阿倍野区阿倍野筋1丁目1-43"
-  },
-  "Osaka Science Museum / 大阪市立科学馆": {
-    "zh": "大阪市立科学馆",
-    "ja": "大阪市立科学館",
-    "en": "Osaka Science Museum",
-    "addressJa": "大阪府大阪市北区中之島4丁目2-1",
-    "query": "大阪市立科学館 大阪府大阪市北区中之島4丁目2-1"
-  },
-  "Nakanoshima / 中之岛建筑散步": {
-    "zh": "中之岛建筑散步",
-    "ja": "中之島",
-    "en": "Nakanoshima",
-    "addressJa": "大阪府大阪市北区中之島",
-    "query": "中之島 大阪市北区"
-  },
-  "Tsuruhashi Koreatown / 鹤桥韩国街": {
-    "zh": "鹤桥韩国街",
-    "ja": "鶴橋コリアタウン",
-    "en": "Tsuruhashi Koreatown",
-    "addressJa": "大阪府大阪市生野区桃谷周辺",
-    "query": "鶴橋 コリアタウン 大阪市生野区桃谷"
-  },
-  "Shinsaibashi-suji Shopping Street / 心斋桥筋商店街": {
-    "zh": "心斋桥筋商店街",
-    "ja": "心斎橋筋商店街",
-    "en": "Shinsaibashi-suji Shopping Street",
-    "addressJa": "大阪府大阪市中央区心斎橋筋",
-    "query": "心斎橋筋商店街 大阪市中央区"
+  "Namba Yasaka Shrine / 难波八阪神社": {
+    "zh": "难波八阪神社",
+    "ja": "難波八阪神社",
+    "en": "Namba Yasaka Shrine",
+    "addressJa": "大阪府大阪市浪速区元町2丁目9-19",
+    "query": "難波八阪神社 大阪府大阪市浪速区元町2丁目9-19"
   },
   "Nankai Namba Station / 南海难波站": {
     "zh": "南海难波站",
@@ -823,6 +1603,6 @@ window.initGoogleRouteMaps = function(){
 }
 loadGoogleMapsIfConfigured();
 </script>
-<!-- route-map-fix: Japanese Google Maps queries, bilingual labels, 2026-05-03 -->
+<!-- final-rewrite: Himeji+Kobe, Kyoto University, Uji transfer, 2026-05-04 -->
 </body>
 </html>

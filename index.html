@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>关西 2026/5/4–5/13 最终行程地图｜大阪・京都・姬路・神户・奈良・宇治</title>
+  <title>关西 2026/5/4–5/13 最终行程地图｜大阪・京都・神户・奈良・宇治</title>
   <style>
     :root{
       --bg:#f6f3ee; --card:#ffffff; --ink:#222; --muted:#6f6a63; --line:#ded7cc;
@@ -40,10 +40,10 @@
 <body>
 <header class="hero">
   <div class="hero-inner">
-    <h1>关西 10 日最终行程地图<br>大阪・京都・姬路・神户・奈良・宇治</h1>
-    <p class="subtitle">2026/5/4–5/13｜大阪住 Floral Hotel・East Shinsaibashi，京都住四条乌丸。新版按“5/4–5/8 大阪住宿不变、5/10 岚山固定”的约束优化：姬路城+神户港口压缩为一日，奈良优先若草山，5/8 只做伏见稻荷轻量转场，5/9 京都大学左京区线，5/12 宇治转场回大阪。</p>
+    <h1>关西 10 日最终行程地图<br>大阪・京都・神户・奈良・宇治</h1>
+    <p class="subtitle">2026/5/4–5/13｜大阪住 Floral Hotel・East Shinsaibashi，京都住四条乌丸。新版按“5/4–5/8 大阪住宿不变、5/10 岚山固定”的约束优化：5/6 改为身体不适/阴天友好的神户低步行版，保留生田神社、三宫中心街、南京町、神户市立博物馆、美利坚公园与神户塔，并把须磨海边、须磨浦公园缆车、舞子公园/明石海峡大桥设为天气好且体力足够时的支线。</p>
     <div class="pillbar">
-      <span class="pill">大阪 5/4–5/8退房，5/12–5/13</span><span class="pill">京都 5/8–5/12退房</span><span class="pill">5/6 姬路城 + 神户港口</span><span class="pill">5/10 岚山固定</span><span class="pill">5/12 宇治转场到大阪</span>
+      <span class="pill">大阪 5/4–5/8退房，5/12–5/13</span><span class="pill">京都 5/8–5/12退房</span><span class="pill">5/6 神户低步行版</span><span class="pill">须磨/舞子为可选支线</span><span class="pill">5/10 岚山固定</span><span class="pill">5/12 宇治转场到大阪</span>
     </div>
   </div>
 </header>
@@ -52,7 +52,7 @@
   <section class="grid summary">
     <div class="card"><h3>大阪住宿</h3><p><strong>Floral Hotel・East Shinsaibashi</strong><br><span class="small">2-6-4 Shimanouchi, Chuo-ku, Osaka / 大阪市中央区島之内2-6-4</span></p><a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=2-6-4%20Shimanouchi%2C%20Chuo-ku%2C%20Osaka">打开大阪酒店地图</a></div>
     <div class="card"><h3>京都住宿</h3><p><strong>四条乌丸附近</strong><br><span class="small">以 Karasuma Station / Shijo Station 为导航锚点。实际酒店确定后，把 HTML 数据中的“京都住宿”地址替换成酒店名即可。</span></p><a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Shijo%20Karasuma%2C%20Kyoto">打开京都住宿锚点</a></div>
-    <div class="card"><h3>关键提醒</h3><p>姬路城请优先上午入城；5/8 跨城日只做伏见稻荷+夜散步；京都大学综合博物馆放 5/9 周六；嵯峨野小火车 5/10 09:30 龟冈发车需倒推；5/12 宇治轻装转场；5/13 若 22:00 航班，18:00–18:30 离开酒店。</p></div>
+    <div class="card"><h3>关键提醒</h3><p>5/6 阴天或身体不适时不去姬路城，改走神户低步行线；神户市区可用 City Loop / Port Loop 观光巴士减少步行；须磨海边、须磨浦公园缆车、舞子公园/明石海峡大桥只在体力和天气都合适时追加；5/10 岚山小火车固定；5/13 若 22:00 航班，18:00–18:30 离开大阪市区去机场。</p></div>
   </section>
 
   <section class="api-box">
@@ -204,91 +204,109 @@ const itinerary = [
   {
     "id": "d0506",
     "date": "5/6 周三",
-    "title": "姬路城 + 神户港口一日",
+    "title": "神户低步行版：生田神社、南京町、博物馆、港口；须磨/舞子可选",
     "stay": "大阪｜Floral Hotel・East Shinsaibashi",
-    "summary": "参考大环线思路只吸收最现实的西向精华：上午姬路城和好古园，下午压缩神户 City Walk，傍晚留给美利坚公园和神户塔；不继续外扩冈山/仓敷/高松。",
+    "summary": "5/6 若阴天且身体不舒服，取消姬路城，把当天改成神户轻量 City Walk：晚出发、少爬坡、室内商场和博物馆穿插休息，傍晚看美利坚公园与神户塔；如果体力和天气都恢复，再追加须磨海边或舞子公园/明石海峡大桥日落支线。",
     "highlights": [
-      "姬路城是本次新增的重量级景点",
-      "好古园紧邻姬路城，适合顺路补庭园",
-      "神户只保留三宫/南京町/港口，避免过载",
-      "当天不再加入白鹤酒造资料馆或北野异人馆深度参观"
+      "不去姬路城，避免登城楼梯、坡道和长距离往返",
+      "神户主线集中在三宫—元町—旧居留地—美利坚公园，步行压力低",
+      "神户市立博物馆作为阴天/休息点，常设展看神户开港历史",
+      "须磨海边、须磨浦公园缆车、舞子公园/明石海峡大桥都设为可选，不强制执行"
     ],
-    "ticket": "姬路城和好古园建议买联票或提前确认票务；姬路城上午入城更稳。神户塔若要登塔，建议出行前确认营业时间和票。",
+    "ticket": "神户市立博物馆通常 9:30–17:30 开馆，周五/周六延长至 20:00，入馆到闭馆前 30 分钟；5/6 为周三，请按 17:00 前入馆规划。若当天搭乘 City Loop / Port Loop 三次以上，可考虑一日券。须磨浦公园缆车、神户塔、舞子海上步道等项目按当天体力和天气现场决定。",
     "stops": [
       {
-        "time": "07:20",
+        "time": "10:00",
         "name": "Floral Hotel・East Shinsaibashi",
         "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
-        "note": "早出发，先去大阪站/JR 方向。"
+        "note": "身体不舒服时不要早起；先吃早餐、带好药和水。"
       },
       {
-        "time": "08:00",
-        "name": "Osaka Station / 大阪站",
-        "address": "Osaka Station, Osaka",
-        "note": "乘 JR 新快速/新干线方向前往姬路。"
+        "time": "10:30",
+        "name": "Osaka-Namba Station / 大阪难波站",
+        "address": "Osaka-Namba Station, Osaka",
+        "note": "从难波乘阪神/近铁方向去神户三宫；也可从大阪/梅田走 JR。"
       },
       {
-        "time": "09:10",
-        "name": "Himeji Station / 姬路站",
-        "address": "Himeji Station, Hyogo",
-        "note": "从车站步行或巴士到姬路城。"
+        "time": "11:20",
+        "name": "Kobe-Sannomiya Station / 神户三宫站",
+        "address": "Kobe-Sannomiya Station, Kobe",
+        "note": "神户轻量线起点；到站后先确认体力，必要时直接去商场/咖啡。"
       },
       {
-        "time": "09:30",
-        "name": "Himeji Castle / 姬路城",
-        "address": "68 Honmachi, Himeji, Hyogo",
-        "note": "白鹭城，世界遗产；上午优先入城。"
-      },
-      {
-        "time": "11:45",
-        "name": "Koko-en Garden / 好古园",
-        "address": "68 Honmachi, Himeji, Hyogo",
-        "note": "姬路城旁的日式庭园，午前后顺路。"
-      },
-      {
-        "time": "12:45",
-        "name": "Himeji Station / 姬路站",
-        "address": "Himeji Station, Hyogo",
-        "note": "午餐后转往神户三宫/元町。"
-      },
-      {
-        "time": "13:45",
+        "time": "11:35",
         "name": "Ikuta Shrine / 生田神社",
         "address": "1-2-1 Shimoyamatedori, Chuo-ku, Kobe",
-        "note": "三宫附近，作为神户 City Walk 起点。"
+        "note": "拥有约 1800 年历史的结缘神社；从三宫短步行可到。北野坡路多，身体不适时不建议绕上北野。"
       },
       {
-        "time": "14:30",
+        "time": "12:15",
         "name": "Sannomiya Center Gai / 三宫中心街",
         "address": "Sannomiya Center Gai, Kobe",
-        "note": "商店街，短逛即可。"
+        "note": "药妆、潮流服饰和商场集中，适合阴天慢逛。"
       },
       {
-        "time": "15:15",
+        "time": "13:00",
         "name": "Nankinmachi / 南京町",
         "address": "Nankinmachi, Chuo-ku, Kobe",
-        "note": "中华街小吃、元町周边。"
+        "note": "午餐和小吃：肉包、炸物、甜品、饮料；累了就在元町/大丸周边休息。"
+      },
+      {
+        "time": "14:15",
+        "name": "Kobe City Museum / 神户市立博物馆",
+        "address": "24 Kyomachi, Chuo-ku, Kobe",
+        "note": "纯白近代建筑，常设展看神户开港、东西方交流和城市历史；也是阴天休息点。"
+      },
+      {
+        "time": "15:45",
+        "name": "Meriken Park / 美利坚公园",
+        "address": "Meriken Park, Kobe",
+        "note": "海滨公园，打卡 BE KOBE、港口景观和白色帆船视角。"
       },
       {
         "time": "16:30",
-        "name": "Meriken Park / 美利坚公园",
-        "address": "Meriken Park, Kobe",
-        "note": "神户港口、海边草坪、拍照。"
-      },
-      {
-        "time": "17:30",
         "name": "Kobe Port Tower / 神户塔",
         "address": "5-5 Hatobacho, Chuo-ku, Kobe",
-        "note": "港口地标，适合傍晚到夜景。"
+        "note": "港口地标；身体不舒服时只看外观即可，体力好再决定是否登塔。"
       },
       {
-        "time": "19:00",
+        "time": "可选 17:00",
+        "name": "Suma Station / 须磨站",
+        "address": "Suma Station, Kobe",
+        "note": "若体力恢复且天气尚可，从三宫/元町方向乘 JR 神户线约 15–20 分钟到须磨；出站后直奔海边。"
+      },
+      {
+        "time": "可选 17:10",
+        "name": "Suma Beach / 须磨海岸",
+        "address": "Suma Beach, Suma-ku, Kobe",
+        "note": "日剧感海边散步点；阴天也可短暂停留，但风大或身体不适就跳过。"
+      },
+      {
+        "time": "可选 17:40",
+        "name": "Sumaura Park Ropeway / 须磨浦公园缆车",
+        "address": "Sumaura Park Ropeway, Kobe",
+        "note": "如果时间更充裕且天气转好，可坐缆车俯瞰神户海景；否则不要硬加。"
+      },
+      {
+        "time": "可选 18:00",
+        "name": "Maiko Park / 舞子公园",
+        "address": "Maiko Park, Kobe",
+        "note": "天气好再从须磨继续去舞子，打卡明石海峡大桥与海边日落。"
+      },
+      {
+        "time": "可选 18:10",
+        "name": "Sun Yat-sen Memorial Hall / 孙文纪念馆",
+        "address": "2051 Higashimaikocho, Tarumi-ku, Kobe",
+        "note": "甜甜圈视角在孙文纪念馆旁露台附近；建议查好日落时间，提前 30 分钟到。"
+      },
+      {
+        "time": "19:00–20:00",
         "name": "Kobe-Sannomiya Station / 神户三宫站",
         "address": "Kobe-Sannomiya Station, Kobe",
-        "note": "建议 19 点左右回大阪；体力好可延后吃晚饭。"
+        "note": "若没走须磨/舞子支线，18 点前后就可回大阪；走支线则从舞子/三宫方向回。"
       },
       {
-        "time": "20:15",
+        "time": "20:30–21:30",
         "name": "Floral Hotel・East Shinsaibashi",
         "address": "2-6-4 Shimanouchi, Chuo-ku, Osaka",
         "note": "回大阪酒店休息。"
@@ -297,13 +315,16 @@ const itinerary = [
     "segments": [
       "TRANSIT",
       "TRANSIT",
-      "TRANSIT",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
+      "WALKING",
       "WALKING",
       "TRANSIT",
+      "WALKING",
       "TRANSIT",
-      "WALKING",
-      "WALKING",
-      "WALKING",
+      "TRANSIT",
       "WALKING",
       "TRANSIT",
       "TRANSIT"
@@ -1417,6 +1438,48 @@ const placeMeta = {
     "en": "Kansai International Airport",
     "addressJa": "大阪府泉佐野市泉州空港北1",
     "query": "関西国際空港"
+  },
+  "Kobe City Museum / 神户市立博物馆": {
+    "zh": "神户市立博物馆",
+    "ja": "神戸市立博物館",
+    "en": "Kobe City Museum",
+    "addressJa": "兵庫県神戸市中央区京町24",
+    "query": "神戸市立博物館 兵庫県神戸市中央区京町24"
+  },
+  "Suma Station / 须磨站": {
+    "zh": "须磨站",
+    "ja": "須磨駅",
+    "en": "Suma Station",
+    "addressJa": "兵庫県神戸市須磨区須磨浦通4丁目",
+    "query": "須磨駅 神戸市須磨区"
+  },
+  "Suma Beach / 须磨海岸": {
+    "zh": "须磨海岸",
+    "ja": "須磨海岸",
+    "en": "Suma Beach",
+    "addressJa": "兵庫県神戸市須磨区須磨浦通",
+    "query": "須磨海岸 神戸市須磨区"
+  },
+  "Sumaura Park Ropeway / 须磨浦公园缆车": {
+    "zh": "须磨浦公园缆车",
+    "ja": "須磨浦山上遊園 須磨浦ロープウェイ",
+    "en": "Sumaura Park Ropeway",
+    "addressJa": "兵庫県神戸市須磨区一ノ谷町5丁目3-2",
+    "query": "須磨浦山上遊園 須磨浦ロープウェイ"
+  },
+  "Maiko Park / 舞子公园": {
+    "zh": "舞子公园",
+    "ja": "舞子公園",
+    "en": "Maiko Park",
+    "addressJa": "兵庫県神戸市垂水区東舞子町2051",
+    "query": "舞子公園 兵庫県神戸市垂水区東舞子町2051"
+  },
+  "Sun Yat-sen Memorial Hall / 孙文纪念馆": {
+    "zh": "孙文纪念馆",
+    "ja": "孫文記念館 移情閣",
+    "en": "Sun Yat-sen Memorial Hall",
+    "addressJa": "兵庫県神戸市垂水区東舞子町2051",
+    "query": "孫文記念館 移情閣 舞子公園"
   }
 };
 
